@@ -40,16 +40,17 @@
 
             //------ADS
             function onDeviceReady() {
+                /*
               admob.createBannerView({
                   publisherId:"ca-app-pub-9969581706012169/7609471531"
               });
+                */
               try 
                 { 
                     pushNotification = window.plugins.pushNotification;
-              $("#app-status-ul").append('<li>registering ' + device.platform + '</li>');
-                    if (device.platform == 'android' || device.platform == 'Android' ||
-                            device.platform == 'amazon-fireos' ) {
-            pushNotification.register(successHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotification"});        // required!
+                    alert("registering " + device.platform);
+                    if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) {
+                        pushNotification.register(successHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotification"});        // required!
                     } else {
                         pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});    // required!
                     }
