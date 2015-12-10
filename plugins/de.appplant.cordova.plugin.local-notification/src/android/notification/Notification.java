@@ -174,10 +174,6 @@ public class Notification {
                 context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         if (isRepeating()) {
-          if (wasInThePast()) {
-            triggerTime = System.currentTimeMillis();
-          }
-
             getAlarmMgr().setRepeating(AlarmManager.RTC_WAKEUP,
                     triggerTime, options.getRepeatInterval(), pi);
         } else {

@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.1.5">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.1.5.3">
   <name>UNISON提示</name>
   <description>UNISON提示</description>
   <author href="" email="seohea.production@gmail.com">Seohea Production</author>
@@ -20,8 +20,8 @@
   <preference name="android-installLocation" value="auto"/>
   <preference name="EnableViewportScale" value="true" />
   <plugin name="cordova-admob" spec="4.1.6" />
-  <plugin name="de.appplant.cordova.plugin.local-notification" source="pgb" spec="0.8.2" />
-  <plugin name="org.apache.cordova.console" source="pgb" spec="n/a" />
+  <plugin name="de.appplant.cordova.plugin.local-notification" />
+  <plugin name="org.apache.cordova.console" source="pgb"/>
   <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
   <plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" />
   <plugin name="org.apache.cordova.device-orientation" source="pgb" spec="0.3.11" />

@@ -611,9 +611,8 @@
     }
 }
 
-#ifdef __IPHONE_8_0
 /**
- * Called on notification settings registration is completed.
+ * Called on otification settings registration is completed.
  */
 - (void) didRegisterUserNotificationSettings:(UIUserNotificationSettings*)settings
 {
@@ -623,7 +622,6 @@
         _command = NULL;
     }
 }
-#endif
 
 #pragma mark -
 #pragma mark Life Cycle
@@ -648,12 +646,10 @@
                    name:UIApplicationDidFinishLaunchingNotification
                  object:nil];
 
-#ifdef __IPHONE_8_0
     [center addObserver:self
                selector:@selector(didRegisterUserNotificationSettings:)
                    name:UIApplicationRegisterUserNotificationSettings
                  object:nil];
-#endif
 }
 
 /**
