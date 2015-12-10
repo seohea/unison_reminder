@@ -21,7 +21,7 @@
             #action_btns{
                 display: table;
                 margin: 0 auto;
-                padding: 100px;
+                padding-top: 50px;
             }
         </style>
 
@@ -42,16 +42,17 @@
                 cordova.plugins.notification.local.schedule({
                     id: 1,
                     title: "Fat reminder",
-                    text: "Hello World!",
+                    text: "Remind you to hit fat ah!",
                     sound: null,
                     every: 'minute'
                 });
+                alert('強化素材提醒開啟');
             }
 
             function cancel_noti(){
                 cordova.plugins.notification.local.cancelAll(
                   function() {
-                    alert('ok, all canceled');
+                    alert('強化素材提醒取消');
                   }
                 );
             }
@@ -63,6 +64,15 @@
                   publisherId:"ca-app-pub-9969581706012169/7609471531"
                 });
                 */
+                cordova.plugins.notification.local.isPresent(1, function (present) {
+                    if(present){
+                        $("#fat_on").hide();
+                        $("#fat_off").show();
+                    }else{
+                        $("#fat_off").hide();
+                        $("#fat_on").show();
+                    }
+                });
             }
             document.addEventListener("deviceready", onDeviceReady, false);
             
@@ -126,8 +136,16 @@
         <div class="container">
             <div class="row">
                 <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
-                    <button type="button" class="btn btn-info btn-lg" onclick="trigger_noti();">Fat reminder turn on&nbsp;&nbsp;<!--span class="badge">OFF</span--></button>
-                    <button type="button" class="btn btn-warning btn-lg" onclick="cancel_noti();">Fat reminder turn off&nbsp;&nbsp;<!--span class="badge">OFF</span--></button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="trigger_noti();" style="background-color:#004c99; border:0px;" id="fat_on">
+                        強化素材提醒&nbsp;&nbsp;
+                        <span class="badge" style="color:#004c99;background-color:grey;">ON</span>
+                        <span class="badge" style="color:white;background-color:#ff9900;">OFF</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="cancel_noti();" style="background-color:#004c99; border:0px;" id="fat_off">
+                        強化素材提醒&nbsp;&nbsp;
+                        <span class="badge" style="color:white;background-color:#ff9900;">ON</span>
+                        <span class="badge" style="color:#004c99;background-color:grey;">OFF</span>
+                    </button>
                     <!--button type="button" class="btn btn-default btn-lg">Middle&nbsp;&nbsp;<span class="badge">14</span></button-->
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
