@@ -38,6 +38,24 @@
 
             });
 
+            function trigger_noti(){
+                cordova.plugins.notification.local.schedule({
+                    id: 1,
+                    title: "Fat reminder",
+                    text: "Hello World!",
+                    sound: null,
+                    every: 'minute'
+                });
+            }
+
+            function cancel_noti(){
+                cordova.plugins.notification.local.cancelAll(
+                  function() {
+                    alert('ok, all canceled');
+                  }
+                );
+            }
+
             //------ADS
             function onDeviceReady() {
                 /*
@@ -45,11 +63,6 @@
                   publisherId:"ca-app-pub-9969581706012169/7609471531"
                 });
                 */
-                cordova.plugins.notification.local.schedule({
-                    id: 1,
-                    text: "Hello World!"
-                });
-              
             }
             document.addEventListener("deviceready", onDeviceReady, false);
             
@@ -85,10 +98,10 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="changeclear();" id="setting-clear">點擊輸入欄時不要自動清除</a>
+                            <a href="#" onclick="" id="setting-clear">點擊輸入欄時不要自動清除</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="changehkstyle();" id="setting-hkstyle">正統中文大寫</a>
+                            <a href="#" onclick="" id="setting-hkstyle">正統中文大寫</a>
                         </li>
                         <li class="page-scroll">
                             <a href="#" onclick="about();" id="about">關於</a>
@@ -113,7 +126,8 @@
         <div class="container">
             <div class="row">
                 <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
-                    <button type="button" class="btn btn-default btn-lg">Fat reminder&nbsp;&nbsp;<span class="badge">14</span></button>
+                    <button type="button" class="btn btn-info btn-lg" onclick="trigger_noti();">Fat reminder turn on&nbsp;&nbsp;<!--span class="badge">OFF</span--></button>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="cancel_noti();">Fat reminder turn off&nbsp;&nbsp;<!--span class="badge">OFF</span--></button>
                     <!--button type="button" class="btn btn-default btn-lg">Middle&nbsp;&nbsp;<span class="badge">14</span></button-->
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
