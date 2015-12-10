@@ -20,7 +20,7 @@
   <preference name="android-installLocation" value="auto"/>
   <preference name="EnableViewportScale" value="true" />
   <plugin name="cordova-admob" spec="4.1.6" />
-  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.2" />
+  <plugin name="de.appplant.cordova.plugin.local-notification" source="pgb" spec="0.8.2" />
   <plugin name="org.apache.cordova.console" source="pgb" spec="n/a" />
   <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
   <plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" />
