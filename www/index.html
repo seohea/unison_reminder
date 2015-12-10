@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=0.5, maximum-scale=0.5, width=device-width" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+
+        <style type="text/css">
+            * {
+              border-radius: 0 !important;
+              -moz-border-radius: 0 !important;
+            }
+            body{
+                background-color: #333333;
+            }
+            #action_btns{
+                display: table;
+                margin: 0 auto;
+                padding: 100px;
+            }
+        </style>
+
+        <title>UNISON提示</title>
+
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+            
+
+            $(document).ready(function() {
+                $.support.transition = false;
+
+            });
+
+            //------ADS
+            function onDeviceReady() {
+              admob.createBannerView({
+                  publisherId:"ca-app-pub-9969581706012169/7609471531"
+              });
+              try 
+                { 
+                    pushNotification = window.plugins.pushNotification;
+              $("#app-status-ul").append('<li>registering ' + device.platform + '</li>');
+                    if (device.platform == 'android' || device.platform == 'Android' ||
+                            device.platform == 'amazon-fireos' ) {
+            pushNotification.register(successHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotification"});        // required!
+                    } else {
+                        pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});    // required!
+                    }
+                }
+                catch(err) 
+                { 
+                    txt="There was an error on this page.\n\n"; 
+                    txt+="Error description: " + err.message + "\n\n"; 
+                    alert(txt); 
+                } 
+            }
+            document.addEventListener("deviceready", onDeviceReady, false);
+            
+
+        </script>
+
+    </head>
+
+    <body>
+        <!--div class="app">
+            <h1>PhoneGap</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div-->
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top" id="nav">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" onclick="$('#about-panel').hide();">
+                        <span class="glyphicon glyphicon-cog" style="color:white;"></span>
+                    </button>
+                    <a class="navbar-brand" style="font-size:24px; font-family: 'Righteous', cursive;"><span class="glyphicon glyphicon-magnet"></span>&nbsp;UNISON提示 </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#" onclick="changeclear();" id="setting-clear">點擊輸入欄時不要自動清除</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#" onclick="changehkstyle();" id="setting-hkstyle">正統中文大寫</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#" onclick="about();" id="about">關於</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header>
+            <div class="container" style="padding:30px 0px;">
+                <!--div class="row">
+                    <div class="col-lg-12">
+                        <div class="intro-text">
+                            <span class="skills">一個俾你了解呢個世界既地方</span>
+                        </div>
+                    </div>
+                </div-->
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
+                    <button type="button" class="btn btn-default btn-lg">Fat reminder&nbsp;&nbsp;<span class="badge">14</span></button>
+                    <!--button type="button" class="btn btn-default btn-lg">Middle&nbsp;&nbsp;<span class="badge">14</span></button-->
+                    <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
+                </div>
+            </div>
+            
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+
+    </body>
+</html>
