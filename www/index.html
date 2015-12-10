@@ -41,26 +41,15 @@
             //------ADS
             function onDeviceReady() {
                 /*
-              admob.createBannerView({
+                admob.createBannerView({
                   publisherId:"ca-app-pub-9969581706012169/7609471531"
-              });
+                });
                 */
-              try 
-                { 
-                    pushNotification = window.plugins.pushNotification;
-                    alert("registering " + device.platform);
-                    if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) {
-                        pushNotification.register(successHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotification"});        // required!
-                    } else {
-                        pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});    // required!
-                    }
-                }
-                catch(err) 
-                { 
-                    txt="There was an error on this page.\n\n"; 
-                    txt+="Error description: " + err.message + "\n\n"; 
-                    alert(txt); 
-                } 
+                cordova.plugins.notification.local.schedule({
+                    id: 1,
+                    text: "Hello World!"
+                });
+              
             }
             document.addEventListener("deviceready", onDeviceReady, false);
             
