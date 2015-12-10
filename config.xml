@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.1.4">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.1.4.1">
   <name>UNISON提示</name>
   <description>UNISON提示</description>
   <author href="" email="seohea.production@gmail.com">Seohea Production</author>
@@ -24,9 +24,9 @@
   <gap:plugin name="org.apache.cordova.media-capture"/>
   <gap:plugin name="org.apache.cordova.console"/>
   <gap:plugin name="org.apache.cordova.contacts"/>
-  <plugin name="org.apache.cordova.device" source="pgb" spec="0.2.12" />
-  <gap:plugin name="org.apache.cordova.device-motion"/>
-  <gap:plugin name="org.apache.cordova.device-orientation"/>
+  <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
+  <plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" />
+  <plugin name="org.apache.cordova.device-orientation" source="pgb" spec="0.3.11" />
   <gap:plugin name="org.apache.cordova.dialogs"/>
   <gap:plugin name="org.apache.cordova.file"/>
   <gap:plugin name="org.apache.cordova.file-transfer"/>
@@ -38,7 +38,7 @@
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <gap:plugin name="cordova-admob" source="npm"/>
-  <plugin name="de.appplant.cordova.plugin.local-notification" spec="0.8.1" source="pgb" />
+  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
   <icon src="icon.png"/>
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
   <icon src="www/res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
