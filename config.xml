@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.1.4.1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.1.4.2">
   <name>UNISON提示</name>
   <description>UNISON提示</description>
   <author href="" email="seohea.production@gmail.com">Seohea Production</author>
@@ -19,26 +19,27 @@
   <preference name="android-minSdkVersion" value="14"/>
   <preference name="android-installLocation" value="auto"/>
   <preference name="EnableViewportScale" value="true" />
-  <gap:plugin name="org.apache.cordova.battery-status"/>
-  <gap:plugin name="org.apache.cordova.camera"/>
-  <gap:plugin name="org.apache.cordova.media-capture"/>
-  <gap:plugin name="org.apache.cordova.console"/>
-  <gap:plugin name="org.apache.cordova.contacts"/>
+  <plugin name="cordova-admob" spec="4.1.6" />
+  <plugin name="cordova-plugin-whitelist" spec="1.2.0" />
+  <plugin name="de.appplant.cordova.plugin.local-notification" source="pgb" spec="n/a" />
+  <plugin name="org.apache.cordova.battery-status" source="pgb" spec="0.2.12" />
+  <plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6" />
+  <plugin name="org.apache.cordova.console" source="pgb" spec="n/a" />
+  <plugin name="org.apache.cordova.contacts" source="pgb" spec="0.2.16" />
   <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
   <plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" />
   <plugin name="org.apache.cordova.device-orientation" source="pgb" spec="0.3.11" />
-  <gap:plugin name="org.apache.cordova.dialogs"/>
-  <gap:plugin name="org.apache.cordova.file"/>
-  <gap:plugin name="org.apache.cordova.file-transfer"/>
-  <gap:plugin name="org.apache.cordova.geolocation"/>
-  <gap:plugin name="org.apache.cordova.globalization"/>
-  <gap:plugin name="org.apache.cordova.inappbrowser"/>
-  <gap:plugin name="org.apache.cordova.media"/>
-  <gap:plugin name="org.apache.cordova.network-information"/>
-  <gap:plugin name="org.apache.cordova.splashscreen"/>
-  <gap:plugin name="org.apache.cordova.vibration"/>
-  <gap:plugin name="cordova-admob" source="npm"/>
-  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
+  <plugin name="org.apache.cordova.dialogs" source="pgb" spec="0.3.0" />
+  <plugin name="org.apache.cordova.file" source="pgb" spec="1.3.3" />
+  <plugin name="org.apache.cordova.file-transfer" source="pgb" spec="0.5.0" />
+  <plugin name="org.apache.cordova.geolocation" source="pgb" spec="0.3.12" />
+  <plugin name="org.apache.cordova.globalization" source="pgb" spec="0.3.4" />
+  <plugin name="org.apache.cordova.inappbrowser" source="pgb" spec="0.6.0" />
+  <plugin name="org.apache.cordova.media" source="pgb" spec="0.2.16" />
+  <plugin name="org.apache.cordova.media-capture" source="pgb" spec="0.3.6" />
+  <plugin name="org.apache.cordova.network-information" source="pgb" spec="0.2.15" />
+  <plugin name="org.apache.cordova.splashscreen" source="pgb" spec="1.0.0" />
+  <plugin name="org.apache.cordova.vibration" source="pgb" spec="0.3.13" />
   <icon src="icon.png"/>
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
   <icon src="www/res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
