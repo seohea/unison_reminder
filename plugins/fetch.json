@@ -9,8 +9,9 @@
     },
     "de.appplant.cordova.plugin.local-notification": {
         "source": {
-            "type": "registry",
-            "id": "de.appplant.cordova.plugin.local-notification@0.8.1"
+            "type": "git",
+            "url": "https://github.com/Telerik-Verified-Plugins/LocalNotification",
+            "subdir": "."
         },
         "is_top_level": true,
         "variables": {}

@@ -1,5 +1,12 @@
 
+[![npm version](https://badge.fury.io/js/de.appplant.cordova.plugin.local-notification.svg)](http://badge.fury.io/js/de.appplant.cordova.plugin.local-notification)
 [![PayPayl donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L3HKQCD9UA35A "Donate once-off to this project using Paypal")
+
+#### :bangbang: Please vote for these cordova-windows issues :bangbang:
+1. https://issues.apache.org/jira/browse/CB-8674 _(Missing launch arguments)_
+2. https://issues.apache.org/jira/browse/CB-8946 _(Missing ToastCapable flag)_
+
+Thanks a lot!
 
 Cordova Local-Notification Plugin
 =================================
@@ -25,8 +32,8 @@ For example, applications that depend on servers for messages or data can poll t
 The current 0.8 branch supports the following platforms:
 - __iOS__ _(including iOS8)_<br>
 - __Android__ _(SDK >=7)_
-
-The partial support for WP8.0 has been dropped, but the Windows (Phone) 8.1 platform will be fully supported soon.
+- __Windows 8.1__ _(added with v0.8.2)_
+- __Windows Phone 8.1__ _(added with v0.8.2)_
 
 Find out more informations [here][wiki_platforms] in our wiki.
 
@@ -87,7 +94,12 @@ cordova.plugins.notification.local.on("click", function (notification) {
 Find out more informations [here][wiki_samples] in our wiki.
 
 
-## How can I support the further development?
+## I would like to propose new features
+We appricate any feature proposal and support for their development. Please describe them [here][feature_proposal_issue].
+
+Find out more informations [here][wiki_next] in our wiki.
+
+## Supporting
 Your support is needed. If you use the plugin please send us a drop through the donation button.
 
 Thank you!
@@ -120,4 +132,6 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [wiki_events]: https://github.com/katzer/cordova-plugin-local-notifications/wiki/09.-Events
 [wiki_samples]: https://github.com/katzer/cordova-plugin-local-notifications/wiki/11.-Samples
 [wiki_changelog]: https://github.com/katzer/cordova-plugin-local-notifications/wiki/Upgrade-Guide
+[wiki_next]: https://github.com/katzer/cordova-plugin-local-notifications/wiki/Feature-Requests
+[feature_proposal_issue]: https://github.com/katzer/cordova-plugin-local-notifications/issues/451
 [apache2_license]: http://opensource.org/licenses/Apache-2.0
