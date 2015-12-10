@@ -47,6 +47,7 @@
                     every: 'minute'
                 });
                 alert('強化素材提醒開啟');
+                update_status();
             }
 
             function cancel_noti(){
@@ -55,15 +56,10 @@
                     alert('強化素材提醒取消');
                   }
                 );
+                update_status();
             }
 
-            //------ADS
-            function onDeviceReady() {
-                /*
-                admob.createBannerView({
-                  publisherId:"ca-app-pub-9969581706012169/7609471531"
-                });
-                */
+            function update_status(){
                 cordova.plugins.notification.local.isPresent(1, function (present) {
                     if(present){
                         $("#fat_on").hide();
@@ -73,6 +69,16 @@
                         $("#fat_on").show();
                     }
                 });
+            }
+
+            //------ADS
+            function onDeviceReady() {
+                /*
+                admob.createBannerView({
+                  publisherId:"ca-app-pub-9969581706012169/7609471531"
+                });
+                */
+                update_status();
             }
             document.addEventListener("deviceready", onDeviceReady, false);
             
