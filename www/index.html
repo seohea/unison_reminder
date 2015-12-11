@@ -71,6 +71,16 @@
                 });
             }
 
+            function get_all_id(){
+                var time_for_noti=new Date();
+                time_for_noti.setFullYear(2020, 0, 14);
+                alert(time_for_noti);
+                
+                cordova.plugins.notification.local.getAllIds(function (ids) {
+                    alert(ids);
+                });
+            }
+
             //------ADS
             function onDeviceReady() {
                 /*
@@ -79,6 +89,10 @@
                 });
                 */
                 update_status();
+
+                cordova.plugins.notification.local.on("clear", function(notification) {
+                    alert("cleared: " + notification.id);
+                });
             }
             document.addEventListener("deviceready", onDeviceReady, false);
             
@@ -152,7 +166,7 @@
                         <span class="badge" style="color:white;background-color:#ff9900;">ON</span>
                         <span class="badge" style="color:#004c99;background-color:grey;">OFF</span>
                     </button>
-                    <!--button type="button" class="btn btn-default btn-lg">Middle&nbsp;&nbsp;<span class="badge">14</span></button-->
+                    <button type="button" class="btn btn-default btn-lg" onclick="get_all_id();">Get all IDs</button>
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
             </div>
