@@ -78,15 +78,15 @@
             }
 
             function monday(){
-                //var time = [];
+                var mon = [20,25,30];
                 var arr = [];
-                for(var i=0; i<59; i++){
+                for(var i=0; i<mon.length; i++){
                     var date = new Date();
                     date.setHours(12);
                     date.setSeconds(0);
-                    date.setMinutes(i);
-                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date.toString()};
-                    //nsole.log(obj.at);
+                    date.setMinutes(mon[i]);
+                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date.toString()};
+                    //console.log(obj.at);
                     arr.push(obj);
                 }
                 console.log(arr);
@@ -96,8 +96,8 @@
             function test_schedule(){
                 var d=new Date();
                 //alert(d.getDay());
-                //monday(d);
-                cordova.plugins.notification.local.schedule(monday());
+                monday(d);
+                //cordova.plugins.notification.local.schedule(monday());
                 alert('開啟');
             }
 
