@@ -80,9 +80,9 @@
             function monday(){
                 //var time = [];
                 var arr = [];
-                for(var i=0; i<4; i++){
+                for(var i=0; i<59; i++){
                     var date = new Date();
-                    date.setHours(11);
+                    date.setHours(12);
                     date.setSeconds(0);
                     date.setMinutes(i);
                     var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date.toString()};
