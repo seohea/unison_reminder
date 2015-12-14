@@ -54,10 +54,10 @@
                 cordova.plugins.notification.local.cancelAll(
                   function() {
                     alert('強化素材提醒取消');
+                    update_status();
                   }
-                  update_status();
                 );
-                
+
             }
 
             function update_status(){
@@ -79,7 +79,7 @@
             }
 
             function monday(){
-                var mon = [40,45,50];
+                var mon = [45,50,55];
                 var arr = [];
                 for(var i=0; i<mon.length; i++){
                     var date = new Date();
@@ -113,7 +113,7 @@
             function test_schedule(){
                 var d=new Date();
                 //alert(d.getDay());
-                monday();
+                //monday();
                 cordova.plugins.notification.local.schedule(monday());
                 alert('開啟');
             }
