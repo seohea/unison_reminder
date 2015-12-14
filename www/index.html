@@ -78,6 +78,22 @@
             }
 
             function monday(){
+                var mon = [35,40,45];
+                var arr = [];
+                for(var i=0; i<mon.length; i++){
+                    var date = new Date();
+                    //date.setHours(12);
+                    date.setSeconds(0);
+                    date.setMinutes(mon[i]);
+                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date.toString()};
+                    //console.log(obj.at);
+                    arr.push(obj);
+                }
+                console.log(arr);
+                return arr;
+            }
+
+            function tuesday(){
                 var mon = [20,25,30];
                 var arr = [];
                 for(var i=0; i<mon.length; i++){
