@@ -18,7 +18,7 @@
             body{
                 background-color: #333333;
             }
-            #action_btns{
+            #action_btns, #timetable{
                 display: table;
                 margin: 0 auto;
                 padding-top: 50px;
@@ -72,13 +72,27 @@
             }
 
             function get_all_id(){
-                var time_for_noti=new Date();
-                time_for_noti.setFullYear(2020, 0, 14);
-                alert(time_for_noti);
-                
                 cordova.plugins.notification.local.getAllIds(function (ids) {
                     alert(ids);
                 });
+            }
+
+            function monday(date){
+                date.setHours(10);
+                date.setMinutes(0);
+                date.setSeconds(0);
+                for(var i=0; i<4; i++){
+                    date.setMinutes(i);
+                    arr[i]={ id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date};
+                }
+                return arr;
+            }
+
+            function test_schedule(){
+                var d=new Date();
+                alert(d.getDay());
+                cordova.plugins.notification.local.schedule(monday(d));
+                alert('開啟');
             }
 
             //------ADS
@@ -167,7 +181,28 @@
                         <span class="badge" style="color:#004c99;background-color:grey;">OFF</span>
                     </button>
                     <button type="button" class="btn btn-default btn-lg" onclick="get_all_id();">Get all IDs</button>
+                    <button type="button" class="btn btn-default btn-lg" onclick="test_schedule();">test schedule!</button>
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
+                </div>
+
+                <div id="timetable">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        <h3 class="panel-title">強化素材</h3>
+                    </div>
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                <tr><td>日</td><td>0800-1000, 1400-1600, 2030-2100, 2130-0100</td></tr>
+                                <tr><td>一</td><td>1130-1200, 1230-1400, 1730-1800, 1830-2000</td></tr>
+                                <tr><td>二</td><td>0600-0800, 1130-1200, 1230-1400, 1730-1800, 1800-2000</td></tr>
+                                <tr><td>三</td><td>0800-1000, 1400-1600, 2030-2100, 2130-2300</td></tr>
+                                <tr><td>四</td><td>1000-1100, 1600-1700, 2030-2100, 2130-0100</td></tr>
+                                <tr><td>五</td><td>1130-1200, 1230-1400, 1730-1800, 1830-2000</td></tr>
+                                <tr><td>六</td><td>0600-0800, 1130-1200, 1230-1400, 1730-1800, 1830-2000</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             
