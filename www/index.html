@@ -17,6 +17,11 @@
             }
             body{
                 background-color: #333333;
+                background-image: url("img/bg.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center center; 
+                background-size: cover;    
             }
             #action_btns, #timetable{
                 display: table;
@@ -77,6 +82,7 @@
                     }else{
                         $("#fat_on").hide();
                         $("#fat_off").show();
+                        alert("今日強化素材關已經完結 / 提示已經關閉");
                     }
                 });
             }
@@ -212,7 +218,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
+                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%">
                     <button type="button" class="btn btn-default btn-lg" onclick="strong_fat_schedule();" style="background-color:#004c99; border:0px;" id="fat_on">
                         今日強化素材提醒&nbsp;&nbsp;
                         <span class="badge" style="color:#004c99;background-color:grey;">ON</span>
