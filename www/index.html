@@ -86,7 +86,7 @@
                     //date.setHours(12);
                     date.setSeconds(0);
                     date.setMinutes(mon[i]);
-                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date.toString()};
+                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date};
                     //console.log(obj.at);
                     arr.push(obj);
                 }
@@ -102,7 +102,7 @@
                     date.setHours(12);
                     date.setSeconds(0);
                     date.setMinutes(mon[i]);
-                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date.toString()};
+                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date};
                     //console.log(obj.at);
                     arr.push(obj);
                 }
@@ -113,8 +113,8 @@
             function test_schedule(){
                 var d=new Date();
                 //alert(d.getDay());
-                //monday();
-                cordova.plugins.notification.local.schedule(monday());
+                monday();
+                //cordova.plugins.notification.local.schedule(monday());
                 alert('開啟');
             }
 
