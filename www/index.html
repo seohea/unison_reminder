@@ -35,7 +35,6 @@
 
             $(document).ready(function() {
                 $.support.transition = false;
-
             });
 
             function cancel_noti(){
@@ -49,6 +48,7 @@
             }
 
             function update_status(){
+                /*
                 cordova.plugins.notification.local.isPresent(1, function (present) {
                     if(present){
                         $("#fat_on").hide();
@@ -58,6 +58,9 @@
                         $("#fat_on").show();
                     }
                 });
+                */
+                $('#timetable-content').hide();
+                get_all_id();
             }
 
             function get_all_id(){
@@ -105,12 +108,14 @@
                 var arr = [];
                 for(var i=0; i<hr.length; i++){
                     var date = new Date();
-                    date.setHours(hr[i]); 
-                    date.setMinutes(min[i]);
-                    date.setSeconds(0);
-                    var obj = { id: i, title: "UNISON 提醒", text: "強化素材進行中!", firstAt: date};
-                    //console.log(obj.at);
-                    arr.push(obj);
+                    if(hr[i] >= date.getHours()){
+                        date.setHours(hr[i]); 
+                        date.setMinutes(min[i]);
+                        date.setSeconds(0);
+                        var obj = { id: i, title: "UNISON 強化素材提醒", text: hr[i]+":"+min[i]+" - 強化素材進行中!", firstAt: date};
+                        //console.log(obj.at);
+                        arr.push(obj);
+                    }
                 }
                 console.log(arr);
                 return arr;
@@ -135,10 +140,12 @@
                 update_status();
 
                 cordova.plugins.notification.local.on("clear", function(notification) {
-                    alert("cleared: " + notification.id);
+                    update_status();
                 });
             }
             document.addEventListener("deviceready", onDeviceReady, false);
+
+
             
 
         </script>
@@ -207,12 +214,12 @@
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
 
-                <div id="timetable" style="padding:20px">
+                <div id="timetable" style="width:90%" onclick="$('#timetable-content').toggle();">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                        <h3 class="panel-title">強化素材時間表</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;強化素材時間表</h3>
                     </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="timetable-content">
                             <table class="table table-condensed">
                                 <tr><td>日</td><td>0800-1000, 1400-1600, 2030-2100, 2130-0100</td></tr>
                                 <tr><td>一</td><td>1130-1200, 1230-1400, 1730-1800, 1830-2000</td></tr>
