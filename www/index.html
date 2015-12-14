@@ -39,6 +39,7 @@
             });
 
             function trigger_noti(){
+                /*
                 cordova.plugins.notification.local.schedule({
                     id: 1,
                     title: "Fat reminder",
@@ -46,6 +47,8 @@
                     sound: null,
                     every: 'minute'
                 });
+                */
+                strong_fat_schedule();
                 alert('強化素材提醒開啟');
                 update_status();
             }
@@ -53,7 +56,7 @@
             function cancel_noti(){
                 cordova.plugins.notification.local.cancelAll(
                   function() {
-                    alert('強化素材提醒取消');
+                    alert('所有強化素材提醒取消');
                     update_status();
                   }
                 );
@@ -78,44 +81,53 @@
                 });
             }
 
-            function monday(){
-                var mon = [45,50,55];
+            function strong_fat(day){
+                var hr = [];
+                var min = []; 
+
+                if (day == 0){
+                    hr      = [8,14,20,21];
+                    min     = [0,0,30,30];
+                }else if(day == 1){
+                    hr      = [11,12,17,18];
+                    min     = [30,30,30,30];
+                }else if(day == 2){
+                    hr      = [6,11,12,17,18];
+                    min     = [0,30,30,30,0];
+                }else if(day == 3){
+                    hr      = [8,14,20,21];
+                    min     = [0,0,30,30];
+                }else if(day == 4){
+                    hr      = [10,16,20,21];
+                    min     = [0,0,30,30];
+                }else if(day == 5){
+                    hr      = [11,12,17,18];
+                    min     = [30,30,30,30];
+                }else if(day == 6){
+                    hr      = [6,11,12,17,18];
+                    min     = [0,30,30,30,30];
+                }
+
                 var arr = [];
-                for(var i=0; i<mon.length; i++){
+                for(var i=0; i<hr.length; i++){
                     var date = new Date();
-                    //date.setHours(12);
+                    date.setHours(hr[i]); 
+                    date.setMinutes(min[i]);
                     date.setSeconds(0);
-                    date.setMinutes(mon[i]);
-                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date};
+                    var obj = { id: i, title: "UNISON 提醒", text: "強化素材進行中!", firstAt: date};
                     //console.log(obj.at);
                     arr.push(obj);
                 }
                 console.log(arr);
                 return arr;
             }
-
-            function tuesday(){
-                var mon = [15,20,25];
-                var arr = [];
-                for(var i=0; i<mon.length; i++){
-                    var date = new Date();
-                    date.setHours(14);
-                    date.setSeconds(0);
-                    date.setMinutes(mon[i]);
-                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, firstAt: date};
-                    //console.log(obj.at);
-                    arr.push(obj);
-                }
-                console.log(arr);
-                return arr;
-            }
-
-            function test_schedule(){
+                
+            function strong_fat_schedule(){
                 var d=new Date();
                 //alert(d.getDay());
-                monday();
-                cordova.plugins.notification.local.schedule(monday());
-                alert('開啟');
+                strong_fat(d.getDay());
+                cordova.plugins.notification.local.schedule(strong_fat());
+                //alert('開啟');
             }
 
             //------ADS
@@ -165,13 +177,7 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="" id="setting-clear">點擊輸入欄時不要自動清除</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#" onclick="" id="setting-hkstyle">正統中文大寫</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#" onclick="about();" id="about">關於</a>
+                            <a href="#" onclick="get_all_id();">Get all IDs</a>
                         </li>
                     </ul>
                 </div>
@@ -194,24 +200,22 @@
             <div class="row">
                 <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
                     <button type="button" class="btn btn-default btn-lg" onclick="trigger_noti();" style="background-color:#004c99; border:0px;" id="fat_on">
-                        強化素材提醒&nbsp;&nbsp;
+                        今日強化素材提醒&nbsp;&nbsp;
                         <span class="badge" style="color:#004c99;background-color:grey;">ON</span>
                         <span class="badge" style="color:white;background-color:#ff9900;">OFF</span>
                     </button>
                     <button type="button" class="btn btn-default btn-lg" onclick="cancel_noti();" style="background-color:#004c99; border:0px;" id="fat_off">
-                        強化素材提醒&nbsp;&nbsp;
+                        今日強化素材提醒&nbsp;&nbsp;
                         <span class="badge" style="color:white;background-color:#ff9900;">ON</span>
                         <span class="badge" style="color:#004c99;background-color:grey;">OFF</span>
                     </button>
-                    <button type="button" class="btn btn-default btn-lg" onclick="get_all_id();">Get all IDs</button>
-                    <button type="button" class="btn btn-default btn-lg" onclick="test_schedule();">test schedule!</button>
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
 
                 <div id="timetable" style="padding:20px">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                        <h3 class="panel-title">強化素材</h3>
+                        <h3 class="panel-title">強化素材時間表</h3>
                     </div>
                         <div class="panel-body">
                             <table class="table table-condensed">
