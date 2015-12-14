@@ -35,6 +35,9 @@
 
             $(document).ready(function() {
                 $.support.transition = false;
+                var d=new Date();
+                var day = ['日','一','二','三','四','五','六'];
+                 $('#timetable_title').text("強化素材時間表 (今日: 星期"+day[d.getDay()]+")");
             });
 
             function cancel_noti(){
@@ -60,6 +63,8 @@
                 });
                 */
                 $('#timetable-content').hide();
+
+                
                 get_all_id();
             }
 
@@ -67,14 +72,18 @@
                 cordova.plugins.notification.local.getAllIds(function (ids) {
                     
                     if(ids == "" || ids == null){
-                        alert("No pending notification!");
                         $("#fat_off").hide();
                         $("#fat_on").show();
                     }else{
-                        alert(ids);
                         $("#fat_on").hide();
                         $("#fat_off").show();
                     }
+                });
+            }
+
+            function show_all_id(){
+                cordova.plugins.notification.local.getAllIds(function (ids) {
+                    alert(ids);
                 });
             }
 
@@ -179,6 +188,9 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
+                            <a href="#" onclick="show_all_id();">Show all IDs</a>
+                        </li>
+                        <li class="page-scroll">
                             <a href="#" onclick="get_all_id();">Get all IDs</a>
                         </li>
                     </ul>
@@ -217,7 +229,7 @@
                 <div id="timetable" style="width:90%" onclick="$('#timetable-content').toggle();">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;強化素材時間表</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;<span id="timetable_title">強化素材時間表 (今日: 星期)</span></h3>
                     </div>
                         <div class="panel-body" id="timetable-content">
                             <table class="table table-condensed">
