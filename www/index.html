@@ -78,12 +78,13 @@
             }
 
             function monday(date){
+                var arr = [];
                 date.setHours(10);
-                date.setMinutes(0);
                 date.setSeconds(0);
                 for(var i=0; i<4; i++){
-                    date.setMinutes(i);
-                    arr[i]={ id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date};
+                    date.setMinutes(i+15);
+                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date};
+                    arr.push(obj);
                 }
                 return arr;
             }
