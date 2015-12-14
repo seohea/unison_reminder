@@ -77,22 +77,27 @@
                 });
             }
 
-            function monday(date){
+            function monday(){
+                //var time = [];
                 var arr = [];
-                date.setHours(10);
-                date.setSeconds(0);
                 for(var i=0; i<4; i++){
-                    date.setMinutes(i+15);
-                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date};
+                    var date = new Date();
+                    date.setHours(11);
+                    date.setSeconds(0);
+                    date.setMinutes(i);
+                    var obj = { id: i, title: "Fat reminder", text: "Multi Notification " + i, at: date.toString()};
+                    //nsole.log(obj.at);
                     arr.push(obj);
                 }
+                console.log(arr);
                 return arr;
             }
 
             function test_schedule(){
                 var d=new Date();
-                alert(d.getDay());
-                cordova.plugins.notification.local.schedule(monday(d));
+                //alert(d.getDay());
+                //monday(d);
+                cordova.plugins.notification.local.schedule(monday());
                 alert('開啟');
             }
 
@@ -186,8 +191,8 @@
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
 
-                <div id="timetable">
-                    <div class="panel panel-default">
+                <div id="timetable" style="padding:20px">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                         <h3 class="panel-title">強化素材</h3>
                     </div>
