@@ -21,7 +21,7 @@
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-position: center center; 
-                background-size: cover;    
+                /*background-size: cover;  */  
             }
             #action_btns, #timetable{
                 display: table;
@@ -79,10 +79,10 @@
                     if(ids == "" || ids == null){
                         $("#fat_off").hide();
                         $("#fat_on").show();
+                        alert("今日強化素材關已經完結 / 提示已經關閉");
                     }else{
                         $("#fat_on").hide();
-                        $("#fat_off").show();
-                        alert("今日強化素材關已經完結 / 提示已經關閉");
+                        $("#fat_off").show();    
                     }
                 });
             }
@@ -94,30 +94,39 @@
             }
 
             function strong_fat(day){
+
                 var hr = [];
-                var min = []; 
+                var min = [];
+                var time = [];
 
                 if (day == 0){
                     hr      = [8,14,20,21];
                     min     = [0,0,30,30];
+                    time    = ["0800-1000", "1400-1600", "2030-2100", "2130-0100"];
                 }else if(day == 1){
                     hr      = [11,12,17,18];
                     min     = [30,30,30,30];
+                    time    = ["1130-1200", "1230-1400", "1730-1800", "1830-2000"];
                 }else if(day == 2){
                     hr      = [6,11,12,17,18];
                     min     = [0,30,30,30,0];
+                    time    = ["0600-0800", "1130-1200", "1230-1400", "1730-1800", "1800-2000"];
                 }else if(day == 3){
                     hr      = [8,14,20,21];
                     min     = [0,0,30,30];
+                    time    = ["0800-1000", "1400-1600", "2030-2100", "2130-2300"];
                 }else if(day == 4){
                     hr      = [10,16,20,21];
                     min     = [0,0,30,30];
+                    time    = ["1000-1100", "1600-1700", "2030-2100", "2130-0100"];
                 }else if(day == 5){
                     hr      = [11,12,17,18];
                     min     = [30,30,30,30];
+                    time    = ["1130-1200", "1230-1400", "1730-1800", "1830-2000"];
                 }else if(day == 6){
                     hr      = [6,11,12,17,18];
                     min     = [0,30,30,30,30];
+                    time    = ["0600-0800", "1130-1200", "1230-1400", "1730-1800", "1830-2000"];
                 }
 
                 var arr = [];
@@ -127,7 +136,7 @@
                         date.setHours(hr[i]); 
                         date.setMinutes(min[i]);
                         date.setSeconds(0);
-                        var obj = { id: i, title: "UNISON 強化素材提醒", text: hr[i]+":"+min[i]+" - 強化素材進行中!", firstAt: date};
+                        var obj = { id: i, title: "UNISON 強化素材提醒", text: time[i]+" - 強化素材進行中!", firstAt: date};
                         //console.log(obj.at);
                         arr.push(obj);
                     }
@@ -197,7 +206,7 @@
                             <a href="#" onclick="show_all_id();">Show all IDs</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="get_all_id();">Get all IDs</a>
+                            <a href="#" onclick="get_all_id();">trigger button</a>
                         </li>
                     </ul>
                 </div>
