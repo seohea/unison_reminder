@@ -17,11 +17,11 @@
             }
             body{
                 background-color: #333333;
-                /*
+                
                 background-image: url("img/bg.jpg");
                 background-repeat: no-repeat;
                 background-attachment: fixed;
-                background-position: center center; */
+                background-position: center center; 
             }
             #action_btns, #timetable, #ap_cal, #ver{
                 display: table;
@@ -164,8 +164,8 @@
             function ap_remind(){
                 var now = parseInt($("#now-ap").val());
                 var target = parseInt($("#target-ap").val());
-                if (now == "" || now == null || target == "" || target == null){
-                    alert("先輸入現在及目標AP");
+                if (isNaN(now) || isNaN(target)){
+                    alert("輸入現在及目標AP");
                 }else if (now >= target){
                     alert("目標AP要比現在AP大！")
                 }else{
@@ -202,8 +202,8 @@
                     window.localStorage.setItem("version", "tw");
                 }
 
-                keyvalue = window.localStorage.getItem("version");
-                timetable_version(keyvalue);
+                cancel_noti();
+                get_setting();
                 //alert(keyvalue);
             }
 
@@ -303,14 +303,14 @@
         <div class="container">
             <div class="row">
                 <div id="ver" style="width:90%" >
-                    <div class="panel panel-primary">
+                    <div class="panel panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<span id="ver_title">現在設定為:</span></h3>
+                            <h4 class="panel-title"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<span id="ver_title">現在設定為:</span></h4>
                         </div>
                     </div>
                 </div>
 
-                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%">
+                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px;">
                     <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px;" id="fat_on">
                         今日強化素材提醒&nbsp;&nbsp;
                         <span class="badge" style="color:#2c3e50;background-color:grey;">ON</span>
