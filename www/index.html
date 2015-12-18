@@ -74,14 +74,28 @@
 
             function get_all_id(){
                 cordova.plugins.notification.local.getAllIds(function (ids) {
-                    alert($.inArray(100, ids));
-                    if(ids == "" || ids == null){
+                    if(($.inArray(100, ids))>=0){
+                        $('#ap-isonoff').text("已開啟");
+                    }else{
+                        ('#ap-isonoff').text("已關閉");
+                    }
+
+                    if(($.inArray(100, ids))>=0 && ids.length > 1){
+                        $("#fat_on").hide();
+                        $("#fat_off").show(); 
+                    }else if(($.inArray(100, ids))>=0 && ids.length == 1){
+                        $("#fat_off").hide();
+                        $("#fat_on").show();
+                        alert("今日強化素材關已經完結 / 提示已經關閉");
+                    }else if(($.inArray(100, ids))<0 && ids.length > 0){
+                        $("#fat_on").hide();
+                        $("#fat_off").show(); 
+                    }else if(($.inArray(100, ids))<0 && ids.length == 0){
                         $("#fat_off").hide();
                         $("#fat_on").show();
                         alert("今日強化素材關已經完結 / 提示已經關閉");
                     }else{
-                        $("#fat_on").hide();
-                        $("#fat_off").show();    
+                        alert("Something goes wrong!");
                     }
                 });
             }
@@ -318,13 +332,13 @@
                 <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px;">
                     <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px;" id="fat_on">
                         今日強化素材提醒&nbsp;&nbsp;
-                        <span class="badge" style="color:#2c3e50;background-color:grey;">ON</span>
-                        <span class="badge" style="color:white;background-color:#ff9900;">OFF</span>
+                        <span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
+                        <span class="badge" style="color:white;background-color:#ff9900;">關閉</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px;" id="fat_off">
                         今日強化素材提醒&nbsp;&nbsp;
-                        <span class="badge" style="color:white;background-color:#ff9900;">ON</span>
-                        <span class="badge" style="color:#2c3e50;background-color:grey;">OFF</span>
+                        <span class="badge" style="color:white;background-color:#ff9900;">開啟</span>
+                        <span class="badge" style="color:#2c3e50;background-color:grey;">關閉</span>
                     </button>
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
@@ -346,7 +360,7 @@
                     <div class="panel panel-primary" style="background: rgba(255,255,255,0.7);">
                         <div class="panel-heading" onclick="$('#ap_cal-content').toggle();">
                             <h3 class="panel-title"><span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;AP(體力)提醒&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span id="ap-isonoff"></span>
+                                <span id="ap-isonoff" class="badge" style="color:white;background-color:#ff9900;">...</span>
                             </h3>
                         </div>
 
