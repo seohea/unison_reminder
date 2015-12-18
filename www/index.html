@@ -16,12 +16,32 @@
               -moz-border-radius: 0 !important;
             }
             body{
-                background-color: #333333;
+                -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+                -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+                -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
                 
+                background-color: #333333;
                 background-image: url("img/bg.jpg");
                 background-repeat: no-repeat;
                 background-attachment: fixed;
-                background-position: center center; 
+                /*background-position: center center; */
+                
+                
+                /*
+                background-color:#E4E4E4;
+                
+                background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+                background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+                background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+                background-image:-webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    color-stop(0, #A7A7A7),
+                    color-stop(0.51, #E4E4E4)
+                );
+                background-attachment:fixed;
+                */
             }
             #action_btns, #timetable, #ap_cal, #ver{
                 display: table;
@@ -44,14 +64,21 @@
             });
 
             function cancel_noti(){
-                cordova.plugins.notification.local.cancelAll(
-                  function() {
-                    //強化素材
-                    alert('所有提醒取消');
-                    update_status();
-                  }
-                );
+                cordova.plugins.notification.local.getAllIds(function (ids) {
+                    if(($.inArray(100, ids))>=0){
+                        ids.splice(ids.indexOf(100), 1);
+                        cancel_fat_noti(ids);
+                    }else{
+                        cancel_fat_noti(ids);
+                    }
 
+                });
+            }
+
+            function cancel_fat_noti(ids){
+                cordova.plugins.notification.local.cancel(ids, function() {
+                    update_status();
+                });
             }
 
             function update_status(){
@@ -67,6 +94,7 @@
                 });
                 */
                 $('#timetable-content').hide();
+                
                 //$('#ap_cal-content').hide();
                 
                 get_all_id();
@@ -76,8 +104,12 @@
                 cordova.plugins.notification.local.getAllIds(function (ids) {
                     if(($.inArray(100, ids))>=0){
                         $('#ap-isonoff').text("已開啟");
+                        $('#ap-remove-btn').show();
+                        $('#ap-set-btn').hide();
                     }else{
                         $('#ap-isonoff').text("已關閉");
+                        $('#ap-remove-btn').hide();
+                        $('#ap-set-btn').show();
                     }
 
                     if(($.inArray(100, ids))>=0 && ids.length > 1){
@@ -187,6 +219,8 @@
                     var date = new Date(new Date().getTime() + ((target-now)*3)*60000);
                     cordova.plugins.notification.local.schedule({ id: 100, title: "UNISON AP提醒", text: "現在AP: "+target, firstAt: date});
                     $('#ap-isonoff').text("已開啟");
+                    $('#ap-remove-btn').hide();
+                    $('#ap-set-btn').show();
                     alert("AP提醒已開啟");
                 }
             }
@@ -194,6 +228,8 @@
             function ap_cancel(){
                 cordova.plugins.notification.local.cancel(100, function() {
                     $('#ap-isonoff').text("已關閉");
+                    $('#ap-remove-btn').show();
+                    $('#ap-set-btn').hide();
                     alert("AP提醒已關閉");
                 });
             }
@@ -250,6 +286,9 @@
                 get_setting();
                 update_status();
 
+                cordova.plugins.notification.local.on("trigger", function(notification) {
+                    update_status();
+                });
 
                 cordova.plugins.notification.local.on("clear", function(notification) {
                     update_status();
@@ -293,9 +332,9 @@
                         <li class="page-scroll">
                             <a href="#" onclick="show_all_id();">Show all notification IDs</a>
                         </li>
-                        <li class="page-scroll">
+                        <!--li class="page-scroll">
                             <a href="#" onclick="get_all_id();">get_all_ID()</a>
-                        </li>
+                        </li-->
                         <li class="page-scroll">
                             <a href="#" onclick="settings(0);">設定為日版</a>
                         </li>
@@ -360,7 +399,7 @@
                     <div class="panel panel-primary" style="background: rgba(255,255,255,0.7);">
                         <div class="panel-heading" onclick="$('#ap_cal-content').toggle();">
                             <h3 class="panel-title"><span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;AP(體力)提醒&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span id="ap-isonoff" class="badge" style="color:white;background-color:#ff9900;">...</span>
+                                <span id="ap-isonoff" class="badge" style="color:#000066;background-color:white;">...</span>
                             </h3>
                         </div>
 
@@ -374,10 +413,10 @@
                                 <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1" id="target-ap">
                             </div>
                             <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button class="btn btn-warning" type="button" onclick="ap_cancel();">取消所有AP提醒</button>
+                                <div class="btn-group btn-group-sm" role="group" id="ap-remove-btn">
+                                    <button class="btn btn-warning" type="button" onclick="ap_cancel();" >取消所有AP提醒</button>
                                 </div>
-                                <div class="btn-group btn-group-sm" role="group">
+                                <div class="btn-group btn-group-sm" role="group"  id="ap-set-btn">
                                     <button class="btn btn-success" type="button" onclick="ap_remind();">設定AP提醒</button>
                                 </div>
                             </div>
