@@ -133,6 +133,8 @@
             }
 
             function show_all_id(){
+                $('.navbar-toggle').click();
+
                 cordova.plugins.notification.local.getAllIds(function (ids) {
                     alert(ids);
                 });
@@ -219,8 +221,8 @@
                     var date = new Date(new Date().getTime() + ((target-now)*3)*60000);
                     cordova.plugins.notification.local.schedule({ id: 100, title: "UNISON AP提醒", text: "現在AP: "+target, firstAt: date});
                     $('#ap-isonoff').text("已開啟");
-                    $('#ap-remove-btn').hide();
-                    $('#ap-set-btn').show();
+                    $('#ap-remove-btn').show();
+                    $('#ap-set-btn').hide();
                     alert("AP提醒已開啟");
                 }
             }
@@ -228,8 +230,8 @@
             function ap_cancel(){
                 cordova.plugins.notification.local.cancel(100, function() {
                     $('#ap-isonoff').text("已關閉");
-                    $('#ap-remove-btn').show();
-                    $('#ap-set-btn').hide();
+                    $('#ap-remove-btn').hide();
+                    $('#ap-set-btn').show();
                     alert("AP提醒已關閉");
                 });
             }
