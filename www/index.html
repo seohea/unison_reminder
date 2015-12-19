@@ -75,7 +75,8 @@
                   function() 
                   {
                     $('#dimScreen').fadeTo( "fast", 0 );
-                  }, 2000);
+                    $('#dimScreen').remove();
+                  }, 1000);
                 
                 $.support.transition = false;
             });
