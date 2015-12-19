@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.4.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.4.1.0">
   <name>UNISON提示</name>
   <description>UNISON提示</description>
   <author href="" email="seohea.production@gmail.com">Seohea Production</author>
@@ -22,13 +22,15 @@
   <preference name="android-build-tool" value="gradle" />
   <plugin name="cordova-admob" spec="4.1.6" />
   <plugin name="de.appplant.cordova.plugin.local-notification" />
-  <plugin name="org.apache.cordova.console" source="pgb"/>
+  <!--plugin name="org.apache.cordova.console" source="pgb"/-->
   <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
+  <!--plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" /-->
   <plugin name="org.apache.cordova.device-orientation" source="pgb" spec="0.3.11" />
-  <plugin name="org.apache.cordova.dialogs" source="pgb" spec="0.3.0" />
+  <!--plugin name="org.apache.cordova.dialogs" source="pgb" spec="0.3.0" />
   <plugin name="org.apache.cordova.media" source="pgb" spec="0.2.16" />
   <plugin name="org.apache.cordova.media-capture" source="pgb" spec="0.3.6" />
-  <plugin name="org.apache.cordova.splashscreen" source="pgb" spec="1.0.0" />
+  <plugin name="org.apache.cordova.network-information" source="pgb" spec="0.2.15" />
+  <plugin name="org.apache.cordova.splashscreen" source="pgb" spec="1.0.0" /-->
   <plugin name="org.apache.cordova.vibration" source="pgb" spec="0.3.13" />
   <icon src="logo.png"/>
   <icon src="www/res/icon/android/36.png" gap:platform="android" gap:qualifier="ldpi"/>
@@ -44,7 +46,7 @@
   <icon src="www/res/icon/webos/icon-64.png" gap:platform="webos"/>
   <icon src="www/res/icon/windows-phone/icon-48.png" gap:platform="winphone"/>
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
-  <gap:splash src="www/res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:qualifier="port-ldpi"/>
+  <!--gap:splash src="www/res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:qualifier="port-ldpi"/>
   <gap:splash src="www/res/screen/android/screen-mdpi-portrait.png" gap:platform="android" gap:qualifier="port-mdpi"/>
   <gap:splash src="www/res/screen/android/screen-hdpi-portrait.png" gap:platform="android" gap:qualifier="port-hdpi"/>
   <gap:splash src="www/res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:qualifier="port-xhdpi"/>
@@ -54,7 +56,7 @@
   <gap:splash src="www/res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
-  <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
+  <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/-->
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
