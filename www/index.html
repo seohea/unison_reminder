@@ -141,14 +141,14 @@
                     }else if(($.inArray(100, ids))>=0 && ids.length == 1){
                         $("#fat_off").hide();
                         $("#fat_on").show();
-                        //alert("今日強化素材關已經完結 / 提示已經關閉");
+                        alert("今日強化素材關已經完結 / 提示已經關閉");
                     }else if(($.inArray(100, ids))<0 && ids.length > 0){
                         $("#fat_on").hide();
                         $("#fat_off").show(); 
                     }else if(($.inArray(100, ids))<0 && ids.length == 0){
                         $("#fat_off").hide();
                         $("#fat_on").show();
-                        //alert("今日強化素材關已經完結 / 提示已經關閉");
+                        alert("今日強化素材關已經完結 / 提示已經關閉");
                     }else{
                         //alert("Something goes wrong!");
                     }
@@ -227,8 +227,8 @@
                 //alert(d.getDay());
                 strong_fat(d.getDay());
                 cordova.plugins.notification.local.schedule(strong_fat(d.getDay()));
-                //alert('強化素材提醒開啟');
-                update_status();
+                alert('強化素材提醒開啟');
+                //update_status();
             }
 
             function ap_remind(){
@@ -244,9 +244,10 @@
                     $('#ap-isonoff').text("已開啟");
                     $('#ap-remove-btn').show();
                     $('#ap-set-btn').hide();
-                    //alert("AP提醒已開啟");
-                    show_all_id();
+                    //show_all_id();
+                    alert("AP提醒已開啟");
                 }
+                
             }
 
             function ap_cancel(){
@@ -254,7 +255,7 @@
                     $('#ap-isonoff').text("已關閉");
                     $('#ap-remove-btn').hide();
                     $('#ap-set-btn').show();
-                    //alert("AP提醒已關閉");
+                    alert("AP提醒已關閉");
                     show_all_id();
                 });
             }
@@ -332,9 +333,9 @@
                 setTimeout(
                   function() 
                   {
-                    $('#dimScreen').fadeTo( "fast", 0 );
+                    $('#dimScreen').fadeTo( 1000, 0 );
                     $('#dimScreen').remove();
-                  }, 1000);
+                  }, 1500);
                 
                 admob.createBannerView({
                   publisherId:"ca-app-pub-9969581706012169/5605224331"
@@ -342,6 +343,10 @@
                 
                 get_setting();
                 update_status();
+
+                cordova.plugins.notification.local.on("schedule", function(notification) {
+                    update_status();
+                });
 
                 cordova.plugins.notification.local.on("trigger", function(notification) {
                     update_status();
