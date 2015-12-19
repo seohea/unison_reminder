@@ -85,6 +85,7 @@
             function cancel_all_noti(){
                 cordova.plugins.notification.local.cancelAll(function() {
                     alert("所有提示已經解除");
+                    update_status();
                 }, this);
             }
 
@@ -269,6 +270,7 @@
 
                 cancel_noti();
                 get_setting();
+                update_status();
                 //alert(keyvalue);
             }
 
@@ -437,7 +439,7 @@
                 </div>
 
                 <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px; padding-bottom: 10px;">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px;" >
+                    <button type="button" class="btn btn-primary btn-lg" style="border:0px;" >
                         現在進化素材: &nbsp;&nbsp;
                         <span class="badge" id="evo-badge">...</span>
                     </button>
