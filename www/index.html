@@ -244,6 +244,7 @@
                     $('#ap-isonoff').text("已開啟");
                     $('#ap-remove-btn').show();
                     $('#ap-set-btn').hide();
+                    update_status();
                     alert("AP提醒已開啟");
                 }
             }
@@ -321,6 +322,7 @@
             }
             
             function about(){
+                $('.navbar-toggle').click();
                 alert("版本: v1.0\nCopyright: Seohea Production");
             }
 
