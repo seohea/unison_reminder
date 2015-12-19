@@ -228,7 +228,7 @@
                 strong_fat(d.getDay());
                 cordova.plugins.notification.local.schedule(strong_fat(d.getDay()));
                 alert('強化素材提醒開啟');
-                //update_status();
+                update_status();
             }
 
             function ap_remind(){
@@ -244,8 +244,8 @@
                     $('#ap-isonoff').text("已開啟");
                     $('#ap-remove-btn').show();
                     $('#ap-set-btn').hide();
-                    //show_all_id();
                     alert("AP提醒已開啟");
+                    update_status();
                 }
                 
             }
