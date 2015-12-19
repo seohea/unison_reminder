@@ -71,13 +71,6 @@
             var keyvalue;
 
             $(document).ready(function() {
-                setTimeout(
-                  function() 
-                  {
-                    $('#dimScreen').fadeTo( "fast", 0 );
-                    $('#dimScreen').remove();
-                  }, 1000);
-                
                 $.support.transition = false;
             });
 
@@ -333,6 +326,12 @@
 
             //------ADS
             function onDeviceReady() {
+                setTimeout(
+                  function() 
+                  {
+                    $('#dimScreen').fadeTo( "fast", 0 );
+                    $('#dimScreen').remove();
+                  }, 1000);
                 
                 admob.createBannerView({
                   publisherId:"ca-app-pub-9969581706012169/5605224331"
