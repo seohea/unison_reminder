@@ -61,6 +61,7 @@
 
             $(document).ready(function() {
                 $.support.transition = false;
+                evo_schedule();
             });
 
             function cancel_noti(){
@@ -81,6 +82,12 @@
                 });
             }
 
+            function cancel_all_noti(){
+                cordova.plugins.notification.local.cancelAll(function() {
+                    alert("所有提示已經解除");
+                }, this);
+            }
+
             function update_status(){
                 /*
                 cordova.plugins.notification.local.isPresent(1, function (present) {
@@ -98,6 +105,7 @@
                 //$('#ap_cal-content').hide();
                 
                 get_all_id();
+                evo_schedule();
             }
 
             function get_all_id(){
@@ -276,6 +284,27 @@
                 $('#sf'+d.getDay()).css("background-color","#004c99");
                 $('#sf'+d.getDay()).css("color","white");
             }
+
+            function evo_schedule(){
+                var arr = ["進化蛋 & 鎖匙","丸子(波)","鎖匙 & 丸子(波)", "進化蛋 & 丸子(波)"];
+                var schedule = [];
+                var date = new Date();
+                var day = date.getDay();
+
+                if (day == 1 || day == 3 || day == 5 || day == 0){
+                    if(keyvalue=="jp")
+                        schedule = ["無","無","無","無","無","無",arr[1],arr[1],arr[2],arr[2],arr[3],arr[3],arr[0],arr[0],arr[1],arr[1],arr[2],arr[2],arr[3],arr[3],arr[0],arr[0],arr[1],arr[1]];
+                    else
+                        schedule = [arr[0],arr[0],"無","無","無","無","無",arr[1],arr[1],arr[2],arr[2],arr[3],arr[3],arr[0],arr[0],arr[1],arr[1],arr[2],arr[2],arr[3],arr[3],arr[0],arr[0],arr[1]];
+                }else if(day == 2 || day == 4 || day == 6){
+                    if(keyvalue=="jp")
+                        schedule = ["無","無","無","無","無","無",arr[3],arr[3],arr[0],arr[0],arr[1],arr[1],arr[2],arr[2],arr[3],arr[3],arr[0],arr[0],arr[1],arr[1],arr[2],arr[2],arr[3],arr[3]];
+                    else
+                        schedule = [arr[2],arr[2],"無","無","無","無","無",arr[3],arr[3],arr[0],arr[0],arr[1],arr[1],arr[2],arr[2],arr[3],arr[3],arr[0],arr[0],arr[1],arr[1],arr[2],arr[2],arr[3]];
+                }
+                
+                $('#evo-badge').text(schedule[date.getHours()]);
+            }
             
 
             //------ADS
@@ -322,7 +351,14 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" onclick="$('#about-panel').hide();">
                         <span class="glyphicon glyphicon-cog" style="color:white;"></span>
                     </button>
-                    <a class="navbar-brand" style="font-size:24px; font-family: 'Righteous', cursive;"><span class="glyphicon glyphicon-magnet"></span>&nbsp;UNISON提示 </a>
+                    <a class="navbar-brand" style="font-size:24px; font-family: 'Righteous', cursive;"><!--span class="glyphicon glyphicon-magnet"></span-->
+                        <table style=" margin-top: -10px">
+                            <tr>
+                                <td><img alt="Brand" src="img/gem.png" style="max-width:50px;"/></td>
+                                <td>&nbsp;UNISON提示</td>
+                            </tr>
+                        </table>  
+                    </a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -342,6 +378,9 @@
                         </li>
                         <li class="page-scroll">
                             <a href="#" onclick="settings(1);">設定為台版</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#" onclick="cancel_all_noti();">取消所有提醒</a>
                         </li>
                     </ul>
                 </div>
@@ -374,11 +413,11 @@
                     <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px;" id="fat_on">
                         今日強化素材提醒&nbsp;&nbsp;
                         <span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
-                        <span class="badge" style="color:white;background-color:#ff9900;">關閉</span>
+                        <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px;" id="fat_off">
                         今日強化素材提醒&nbsp;&nbsp;
-                        <span class="badge" style="color:white;background-color:#ff9900;">開啟</span>
+                        <span class="badge" style="color:white;background-color:#ff9900;">已開啟</span>
                         <span class="badge" style="color:#2c3e50;background-color:grey;">關閉</span>
                     </button>
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
@@ -395,6 +434,13 @@
                             </table>
                         </div>
                     </div>
+                </div>
+
+                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px; padding-bottom: 10px;">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px;" >
+                        現在進化素材: &nbsp;&nbsp;
+                        <span class="badge" id="evo-badge">...</span>
+                    </button>
                 </div>
 
                 <div id="ap_cal" style="width:90%" >
@@ -416,7 +462,7 @@
                             </div>
                             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group btn-group-sm" role="group" id="ap-remove-btn">
-                                    <button class="btn btn-warning" type="button" onclick="ap_cancel();" >取消所有AP提醒</button>
+                                    <button class="btn btn-warning" type="button" onclick="ap_cancel();" >取消AP提醒</button>
                                 </div>
                                 <div class="btn-group btn-group-sm" role="group"  id="ap-set-btn">
                                     <button class="btn btn-success" type="button" onclick="ap_remind();">設定AP提醒</button>
@@ -425,6 +471,8 @@
                         </div>
                     </div>
                 </div>
+
+                
 
             </div>
             

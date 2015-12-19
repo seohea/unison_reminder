@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.2.8.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.3.0.0">
   <name>UNISON提示</name>
   <description>UNISON提示</description>
   <author href="" email="seohea.production@gmail.com">Seohea Production</author>
@@ -20,8 +20,6 @@
   <preference name="android-installLocation" value="auto"/>
   <preference name="EnableViewportScale" value="true" />
   <preference name="android-build-tool" value="gradle" />
-  <preference name="SplashScreen" value="screen"/> 
-  <preference name="SplashScreenDelay" value="3000" />
   <plugin name="cordova-admob" spec="4.1.6" />
   <plugin name="de.appplant.cordova.plugin.local-notification" />
   <plugin name="org.apache.cordova.console" source="pgb"/>
@@ -59,7 +57,6 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
-  <gap:splash src="www/res/screen/android/screen-mdpi-portrait.png" />
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
