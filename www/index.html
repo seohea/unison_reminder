@@ -49,6 +49,17 @@
                 padding-top: 30px;
             }
 
+
+            #dimScreen {
+                width: 100%;
+                height: 100%;
+                background:rgba(0,0,0,1); 
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 100;
+            }
+
         </style>
 
         <title>UNISON提示</title>
@@ -60,8 +71,13 @@
             var keyvalue;
 
             $(document).ready(function() {
+                setTimeout(
+                  function() 
+                  {
+                    $('#dimScreen').fadeTo( "fast", 0 );
+                  }, 2000);
+                
                 $.support.transition = false;
-                evo_schedule();
             });
 
             function cancel_noti(){
@@ -83,9 +99,11 @@
             }
 
             function cancel_all_noti(){
+                $('.navbar-toggle').click();
+
                 cordova.plugins.notification.local.cancelAll(function() {
-                    alert("所有提示已經解除");
                     update_status();
+                    alert("所有提示已經解除");
                 }, this);
             }
 
@@ -111,6 +129,8 @@
 
             function get_all_id(){
                 cordova.plugins.notification.local.getAllIds(function (ids) {
+                    show_all_id();
+
                     if(($.inArray(100, ids))>=0){
                         $('#ap-isonoff').text("已開啟");
                         $('#ap-remove-btn').show();
@@ -142,10 +162,8 @@
             }
 
             function show_all_id(){
-                $('.navbar-toggle').click();
-
                 cordova.plugins.notification.local.getAllIds(function (ids) {
-                    alert(ids);
+                    $('#alert-count').text(ids.length);
                 });
             }
 
@@ -308,6 +326,9 @@
                 $('#evo-badge').text(schedule[date.getHours()]);
             }
             
+            function about(){
+                alert("版本: v1.0\nCopyright: Seohea Production");
+            }
 
             //------ADS
             function onDeviceReady() {
@@ -370,19 +391,16 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="show_all_id();">Show all notification IDs</a>
-                        </li>
-                        <!--li class="page-scroll">
-                            <a href="#" onclick="get_all_id();">get_all_ID()</a>
-                        </li-->
-                        <li class="page-scroll">
-                            <a href="#" onclick="settings(0);">設定為日版</a>
+                            <a href="#" onclick="settings(0);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為日版</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="settings(1);">設定為台版</a>
+                            <a href="#" onclick="settings(1);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為台版</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" onclick="cancel_all_noti();">取消所有提醒</a>
+                            <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;取消所有提醒 [剩餘提示數量: <span id="alert-count">999</span>]</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#" onclick="about();"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;關於</a>
                         </li>
                     </ul>
                 </div>
@@ -400,6 +418,7 @@
                 </div-->
             </div>
         </header>
+        <div id="dimScreen"></div>
 
         <div class="container">
             <div class="row">
@@ -441,7 +460,7 @@
                 <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px; padding-bottom: 10px;">
                     <button type="button" class="btn btn-primary btn-lg" style="border:0px;" >
                         現在進化素材: &nbsp;&nbsp;
-                        <span class="badge" id="evo-badge">...</span>
+                        <span class="badge" id="evo-badge" style="background-color:#ff9900; color:white">...</span>
                     </button>
                 </div>
 
@@ -449,7 +468,7 @@
                     <div class="panel panel-primary" style="background: rgba(255,255,255,0.7);">
                         <div class="panel-heading" onclick="$('#ap_cal-content').toggle();">
                             <h3 class="panel-title"><span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;AP(體力)提醒&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span id="ap-isonoff" class="badge" style="color:#000066;background-color:white;">...</span>
+                                <span id="ap-isonoff" class="badge" style="color:#2c3e50;background-color:white;">...</span>
                             </h3>
                         </div>
 
