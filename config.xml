@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.3.3.3">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.seo.unisonremind" version="0.4.0.0">
   <name>UNISON提示</name>
   <description>UNISON提示</description>
   <author href="" email="seohea.production@gmail.com">Seohea Production</author>
@@ -24,12 +24,10 @@
   <plugin name="de.appplant.cordova.plugin.local-notification" />
   <plugin name="org.apache.cordova.console" source="pgb"/>
   <plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
-  <plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" />
   <plugin name="org.apache.cordova.device-orientation" source="pgb" spec="0.3.11" />
   <plugin name="org.apache.cordova.dialogs" source="pgb" spec="0.3.0" />
   <plugin name="org.apache.cordova.media" source="pgb" spec="0.2.16" />
   <plugin name="org.apache.cordova.media-capture" source="pgb" spec="0.3.6" />
-  <plugin name="org.apache.cordova.network-information" source="pgb" spec="0.2.15" />
   <plugin name="org.apache.cordova.splashscreen" source="pgb" spec="1.0.0" />
   <plugin name="org.apache.cordova.vibration" source="pgb" spec="0.3.13" />
   <icon src="logo.png"/>
