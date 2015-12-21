@@ -238,9 +238,11 @@
                 ga_storage._trackEvent('notification', 'fat_schedule_setup', 'Success');
                 var d=new Date();
                 //alert(d.getDay());
-                strong_fat(d.getDay());
-                cordova.plugins.notification.local.schedule(strong_fat(d.getDay()));
-                alert('強化素材提醒開啟');
+                var arr = strong_fat(d.getDay());
+                cordova.plugins.notification.local.schedule(arr);
+                if (arr.length > 0){
+                    alert('強化素材提醒開啟');
+                }
                 update_status();
             }
 
@@ -446,7 +448,7 @@
                 </div-->
             </div>
         </header>
-        <div id="dimScreen"></div>
+        <!--div id="dimScreen"></div-->
 
         <div class="container">
             <div class="row">
