@@ -66,12 +66,19 @@
 
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/GALocalStorage.js"></script>
 
         <script type="text/javascript">
             var keyvalue;
 
             $(document).ready(function() {
                 $.support.transition = false;
+
+                ga_storage._setAccount('UA-71645264-1'); //Replace with your own
+                ga_storage._setDomain('none');
+
+                ga_storage._trackPageview('/index', 'UNISON提示');
+                ga_storage._trackEvent('UNISON提示', 'Open APP', 'Open APP');
             });
 
             function cancel_noti(){
@@ -87,12 +94,14 @@
             }
 
             function cancel_fat_noti(ids){
+                ga_storage._trackEvent('notification', 'cancel_noti', 'fat');
                 cordova.plugins.notification.local.cancel(ids, function() {
                     update_status();
                 });
             }
 
             function cancel_all_noti(){
+                ga_storage._trackEvent('notification', 'cancel_noti', 'all');
                 $('.navbar-toggle').click();
 
                 cordova.plugins.notification.local.cancelAll(function() {
@@ -223,6 +232,7 @@
             }
                 
             function strong_fat_schedule(){
+                ga_storage._trackEvent('notification', 'fat_schedule_setup', 'Success');
                 var d=new Date();
                 //alert(d.getDay());
                 strong_fat(d.getDay());
@@ -235,10 +245,13 @@
                 var now = parseInt($("#now-ap").val());
                 var target = parseInt($("#target-ap").val());
                 if (isNaN(now) || isNaN(target)){
+                    ga_storage._trackEvent('notification', 'ap_setup', 'NAN');
                     alert("輸入現在及目標AP");
                 }else if (now >= target){
+                    ga_storage._trackEvent('notification', 'ap_setup', 'Wrong AP');
                     alert("目標AP要比現在AP大！")
                 }else{
+                    ga_storage._trackEvent('notification', 'ap_setup', 'Success');
                     var date = new Date(new Date().getTime() + ((target-now)*3)*60000);
                     cordova.plugins.notification.local.schedule({ id: 100, title: "UNISON AP提醒", text: "現在AP: "+target, firstAt: date});
                     $('#ap-isonoff').text("已開啟");
@@ -251,6 +264,7 @@
             }
 
             function ap_cancel(){
+                ga_storage._trackEvent('notification', 'ap_cancel', 'all');
                 cordova.plugins.notification.local.cancel(100, function() {
                     $('#ap-isonoff').text("已關閉");
                     $('#ap-remove-btn').hide();
@@ -278,8 +292,10 @@
                 $('.navbar-toggle').click();
 
                 if (version == 0){
+                    ga_storage._trackEvent('setting', 'version', 'jp');
                     window.localStorage.setItem("version", "jp");
                 }else{
+                    ga_storage._trackEvent('setting', 'version', 'tw');
                     window.localStorage.setItem("version", "tw");
                 }
 
@@ -324,6 +340,7 @@
             }
             
             function about(){
+                ga_storage._trackEvent('setting', 'about', 'v1.0');
                 $('.navbar-toggle').click();
                 alert("版本: v1.0\nCopyright: Seohea Production");
             }
