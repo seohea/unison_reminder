@@ -12,19 +12,23 @@
 
         <style type="text/css">
             * {
-              border-radius: 0 !important;
-              -moz-border-radius: 0 !important;
+                border-radius: 0 !important;
+                -moz-border-radius: 0 !important;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+                -webkit-tap-highlight-color: transparent;
+                -webkit-user-modify: read-write-plaintext-only;
             }
             body{
                 -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
                 -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
                 -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-                
+                /*
                 
                 background-color: #333333;
                 background-image: url("img/bg.jpg");
                 background-repeat: no-repeat;
                 background-attachment: fixed;*/
+
                 /*background-position: center center; */
                 
                 
@@ -44,6 +48,31 @@
                 background-attachment:fixed;
                 */
             }
+
+            #main_body{
+                overflow: auto;
+                position: relative;
+                z-index: 50;
+            }
+            .background-image {
+              position: fixed;
+              left: -50px;
+              right: -50px;
+              z-index: 1;
+
+              display: block;
+              background-image: url("img/bg.jpg");
+              width: 1200px;
+              height: 800px;
+
+              -webkit-filter: blur(5px);
+              -moz-filter: blur(5px);
+              -o-filter: blur(5px);
+              -ms-filter: blur(5px);
+              filter: blur(2px);
+            }
+
+
             #action_btns, #timetable, #ap_cal, #ver{
                 display: table;
                 margin: 0 auto;
@@ -71,10 +100,10 @@
             }
 
             .navbar { min-height:50px;  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
-             .navbar .navbar-brand{ padding: 0 12px;font-size: 16px;line-height: 58px;height: 50px; vertical-align: middle;}
+             .navbar .navbar-brand{ padding: 0 12px;font-size: 20px;line-height: 50px;height: 50px; vertical-align: middle;}
              .navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 50px; }
-             .navbar .navbar-toggle {  margin-top: 0px; margin-bottom: 0px; padding: 15px 15px; border: 0px; }
-             .navbar .navbar-form { margin-top: 2px; margin-bottom: 0px }
+             .navbar .navbar-toggle {  margin-top: 0px; margin-bottom: 0px; padding-right: 15px; height:50px; border: 0px;}
+             .navbar .navbar-form { margin-top: 0px; margin-bottom: 0px }
 
 
             #ver{
@@ -414,164 +443,163 @@
                 <p class="event received">Device is Ready</p>
             </div>
         </div-->
+        <div class="background-image"></div>
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top" id="nav">
+        <div id="main_body">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-fixed-top" id="nav">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header page-scroll">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" onclick="$('#about-panel').hide();">
+                            <span class="glyphicon glyphicon-option-vertical" style="color:white;"></span>
+                        </button>
+                        <a class="navbar-brand" style="font-family: 'Righteous', cursive;"><!--span class="glyphicon glyphicon-magnet"></span-->
+                            UNISON提示
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="hidden">
+                                <a href="#page-top"></a>
+                            </li>
+                            <li class="page-scroll">
+                                <a href="#" onclick="settings(0);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為日版</a>
+                            </li>
+                            <li class="page-scroll">
+                                <a href="#" onclick="settings(1);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為台版</a>
+                            </li>
+                            <li class="page-scroll">
+                                <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;取消所有提醒 [剩餘提示數量: <span id="alert-count">999</span>]</a>
+                            </li>
+                            <li class="page-scroll">
+                                <a href="#" onclick="about();"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;關於</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <header>
+                <div class="container" style="padding:30px 0px;">
+                    <!--div class="row">
+                        <div class="col-lg-12">
+                            <div class="intro-text">
+                                <span class="skills">一個俾你了解呢個世界既地方</span>
+                            </div>
+                        </div>
+                    </div-->
+                </div>
+            </header>
+
+            <!--div id="dimScreen"></div-->
+
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" onclick="$('#about-panel').hide();">
-                        <span class="glyphicon glyphicon-option-vertical" style="color:white;"></span>
-                    </button>
-                    <a class="navbar-brand" style="font-size:20px; font-family: 'Righteous', cursive;"><!--span class="glyphicon glyphicon-magnet"></span-->
-                        <table >
-                            <tr>
-                                <!--td><img alt="Brand" src="img/gem.png" style="max-width:50px;"/></td-->
-                                <td>&nbsp;&nbsp;UNISON提示</td>
-                            </tr>
-                        </table>  
-                    </a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="hidden">
-                            <a href="#page-top"></a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#" onclick="settings(0);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為日版</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#" onclick="settings(1);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為台版</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;取消所有提醒 [剩餘提示數量: <span id="alert-count">999</span>]</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#" onclick="about();"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;關於</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <header>
-            <div class="container" style="padding:30px 0px;">
-                <!--div class="row">
-                    <div class="col-lg-12">
-                        <div class="intro-text">
-                            <span class="skills">一個俾你了解呢個世界既地方</span>
+                <div class="row">
+                    <div id="ver" style="width:100%;" >
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h5 class="panel-title"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<span id="ver_title">現在設定為:</span></h5>
+                            </div>
                         </div>
                     </div>
-                </div-->
-            </div>
-        </header>
-        <!--div id="dimScreen"--></div>
 
-        <div class="container">
-            <div class="row">
-                <div id="ver" style="width:100%;" >
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h5 class="panel-title"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<span id="ver_title">現在設定為:</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
-                    <button type="button" class="btn btn-primary btn-lg" style="border:0px; padding:0px; height:50px;" onclick="update_status();alert('已更新');">
-                        <table style="width: 100%; height:100%;">
-                            <tr>
-                                <td>現在進化素材: &nbsp;&nbsp;<span class="badge" id="evo-badge" style="color:#003366;background-color:white;">...</span></td>
-                                <td style="background-color:#0099ff; color:white; width: 15%;"><span class="glyphicon glyphicon-refresh"></span></td>
-                            </tr>
-                        </table>
-                    </button>
-                </div>
-
-
-                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px; padding:0px; height:50px;" id="fat_on">
-                        <table style="width: 100%; height:100%;">
-                            <tr>
-                                <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp;&nbsp;</td>
-                                <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
-                                <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
-                                <td style="background-color:#00bd9c; color:white; width: 15%;"><span class="glyphicon glyphicon-plus"></span></td>
-                            </tr>
-                        </table>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px; padding:0px; height:50px;" id="fat_off">
-                        <table style="width: 100%; height:100%;">
-                            <tr>
-                                <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp;&nbsp;</td>
-                                <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
-                                <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
-                                <td style="background-color:#b30000; color:white; width: 15%;"><span class="glyphicon glyphicon-minus"></span></td>
-                            </tr>
-                        </table>
-                    </button>
-                    <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
-                </div>
-
-                <div id="timetable">
-                    <div class="panel panel-primary" style="background: rgba(255,255,255,0.7); border:0px;margin-bottom:0px">
-                        <div class="panel-heading" onclick="$('#timetable-content').toggle();" style="border:0px; padding:0px; height:50px;">
+                    <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
+                        <button type="button" class="btn btn-primary btn-lg" style="border:0px; padding:0px; height:50px;" onclick="update_status();alert('已更新');">
                             <table style="width: 100%; height:100%;">
                                 <tr>
-                                    <td style="text-align:center;"><h3 class="panel-title"><span id="timetable_title">強化素材時間表</span></td>
-                                    <td style="background-color:#ff9933; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-th-list"></span></td>
+                                    <td>現在進化素材: &nbsp;&nbsp;<span class="badge" id="evo-badge" style="color:#003366;background-color:white;">...</span></td>
+                                    <td style="background-color:#0099ff; color:white; width: 15%;"><span class="glyphicon glyphicon-refresh"></span></td>
                                 </tr>
                             </table>
-                        </div>
-
-                        <div class="panel-body" id="timetable-content">
-                            <table class="table table-condensed" id="sf-table-content">
-                            </table>
-                        </div>
+                        </button>
                     </div>
-                </div>
 
-                
 
-                <div id="ap_cal" >
-                    <div class="panel panel-primary" style="background: rgba(255,255,255,0.7); border:0px;">
-                        <div class="panel-heading" onclick="$('#ap_cal-content').toggle();" style="border:0px; padding:0px; height:50px;">
+                    <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px; padding:0px; height:50px;" id="fat_on">
+                            <table style="width: 100%; height:100%;">
+                                <tr>
+                                    <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp;&nbsp;</td>
+                                    <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
+                                    <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
+                                    <td style="background-color:#00bd9c; color:white; width: 15%;"><span class="glyphicon glyphicon-plus-sign"></span></td>
+                                </tr>
+                            </table>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px; padding:0px; height:50px;" id="fat_off">
+                            <table style="width: 100%; height:100%;">
+                                <tr>
+                                    <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp;&nbsp;</td>
+                                    <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
+                                    <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
+                                    <td style="background-color:#b30000; color:white; width: 15%;"><span class="glyphicon glyphicon-minus-sign"></span></td>
+                                </tr>
+                            </table>
+                        </button>
+                        <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
+                    </div>
+
+                    <div id="timetable">
+                        <div class="panel panel-primary" style="background: rgba(255,255,255,0.7); border:0px;margin-bottom:0px">
+                            <div class="panel-heading" onclick="$('#timetable-content').toggle();" style="border:0px; padding:0px; height:50px;">
                                 <table style="width: 100%; height:100%;">
                                     <tr>
-                                        <td style="text-align:center;"><h3 class="panel-title">AP(體力)提醒&nbsp;&nbsp;&nbsp;
-                                            <span id="ap-isonoff" class="badge" style="color:#003366;background-color:white;">...</span></h3></td>
-                                        <td style="background-color:#00cc66; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-heart-empty"></span></td>
+                                        <td style="text-align:center;"><h3 class="panel-title"><span id="timetable_title">強化素材時間表</span></td>
+                                        <td style="background-color:#ff9933; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-th-list"></span></td>
                                     </tr>
                                 </table>
-                        </div>
+                            </div>
 
-                        <div class="panel-body" id="ap_cal-content">
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-addon" id="basic-addon1">現在AP</span>
-                                <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1" id="now-ap">
+                            <div class="panel-body" id="timetable-content">
+                                <table class="table table-condensed" id="sf-table-content">
+                                </table>
                             </div>
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-addon" id="basic-addon1">目標AP</span>
-                                <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1" id="target-ap">
+                        </div>
+                    </div>
+
+                    
+
+                    <div id="ap_cal" >
+                        <div class="panel panel-primary" style="background: rgba(255,255,255,0.7); border:0px;">
+                            <div class="panel-heading" onclick="$('#ap_cal-content').toggle();" style="border:0px; padding:0px; height:50px;">
+                                    <table style="width: 100%; height:100%;">
+                                        <tr>
+                                            <td style="text-align:center;"><h3 class="panel-title">AP(體力)提醒&nbsp;&nbsp;&nbsp;
+                                                <span id="ap-isonoff" class="badge" style="color:#003366;background-color:white;">...</span></h3></td>
+                                            <td style="background-color:#00cc66; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-heart-empty"></span></td>
+                                        </tr>
+                                    </table>
                             </div>
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <div class="btn-group btn-group-sm" role="group" id="ap-remove-btn">
-                                    <button class="btn btn-warning" type="button" onclick="ap_cancel();" >取消AP提醒</button>
+
+                            <div class="panel-body" id="ap_cal-content">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-addon" id="basic-addon1">現在AP</span>
+                                    <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1" id="now-ap">
                                 </div>
-                                <div class="btn-group btn-group-sm" role="group"  id="ap-set-btn">
-                                    <button class="btn btn-success" type="button" onclick="ap_remind();">設定AP提醒</button>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-addon" id="basic-addon1">目標AP</span>
+                                    <input type="number" class="form-control" placeholder="0" aria-describedby="basic-addon1" id="target-ap">
+                                </div>
+                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <div class="btn-group btn-group-sm" role="group" id="ap-remove-btn">
+                                        <button class="btn btn-warning" type="button" onclick="ap_cancel();" >取消AP提醒</button>
+                                    </div>
+                                    <div class="btn-group btn-group-sm" role="group"  id="ap-set-btn">
+                                        <button class="btn btn-success" type="button" onclick="ap_remind();">設定AP提醒</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    
+
                 </div>
-
                 
-
             </div>
-            
         </div>
 
         <script type="text/javascript" src="cordova.js"></script>
