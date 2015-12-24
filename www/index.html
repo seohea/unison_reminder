@@ -71,7 +71,7 @@
             }
 
             .navbar { min-height:50px;  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
-             .navbar .navbar-brand{ padding: 0 12px;font-size: 16px;line-height: 50px;height: 50px; vertical-align: middle;}
+             .navbar .navbar-brand{ padding: 0 12px;font-size: 16px;line-height: 58px;height: 50px; vertical-align: middle;}
              .navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 50px; }
              .navbar .navbar-toggle {  margin-top: 0px; margin-bottom: 0px; padding: 15px 15px; border: 0px; }
              .navbar .navbar-form { margin-top: 2px; margin-bottom: 0px }
@@ -138,6 +138,7 @@
             function update_status(){
  
                 $('#timetable-content').hide();
+                $('#ap_cal-content').hide();
                 
                 get_all_id();
                 evo_schedule();
@@ -466,7 +467,7 @@
                 </div-->
             </div>
         </header>
-        <div id="dimScreen"></div>
+        <!--div id="dimScreen"--></div>
 
         <div class="container">
             <div class="row">
@@ -515,12 +516,12 @@
                 </div>
 
                 <div id="timetable">
-                    <div class="panel panel-primary" style="background: rgba(255,255,255,0.7); border:0px;">
+                    <div class="panel panel-primary" style="background: rgba(255,255,255,0.7); border:0px;margin-bottom:0px">
                         <div class="panel-heading" onclick="$('#timetable-content').toggle();" style="border:0px; padding:0px; height:50px;">
                             <table style="width: 100%; height:100%;">
                                 <tr>
                                     <td style="text-align:center;"><h3 class="panel-title"><span id="timetable_title">強化素材時間表</span></td>
-                                    <td style="background-color:#996633; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-th-list"></span></td>
+                                    <td style="background-color:#ff9933; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-th-list"></span></td>
                                 </tr>
                             </table>
                         </div>
@@ -541,7 +542,7 @@
                                     <tr>
                                         <td style="text-align:center;"><h3 class="panel-title">AP(體力)提醒&nbsp;&nbsp;&nbsp;
                                             <span id="ap-isonoff" class="badge" style="color:#003366;background-color:white;">...</span></h3></td>
-                                        <td style="background-color:#ff9933; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-heart-empty"></span></td>
+                                        <td style="background-color:#00cc66; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-heart-empty"></span></td>
                                     </tr>
                                 </table>
                         </div>
