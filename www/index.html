@@ -20,10 +20,11 @@
                 -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
                 -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
                 
+                
                 background-color: #333333;
                 background-image: url("img/bg.jpg");
                 background-repeat: no-repeat;
-                background-attachment: fixed;
+                background-attachment: fixed;*/
                 /*background-position: center center; */
                 
                 
@@ -38,7 +39,7 @@
                     left top,
                     left bottom,
                     color-stop(0, #A7A7A7),
-                    color-stop(0.51, #E4E4E4)
+                    color-stop(0.25, #E4E4E4)
                 );
                 background-attachment:fixed;
                 */
@@ -46,7 +47,8 @@
             #action_btns, #timetable, #ap_cal, #ver{
                 display: table;
                 margin: 0 auto;
-                padding-top: 30px;
+                padding-top: 15px;
+                width: 96%;
             }
 
 
@@ -59,6 +61,29 @@
                 left: 0;
                 z-index: 100;
             }
+
+            #fat_remind_button_title{
+                /*text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;*/
+            }
+
+            #fat_on, #fat_off{
+                /*background-color: rgba(0, 51, 102,  0.7);*/
+            }
+
+            .navbar { min-height:50px;  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+             .navbar .navbar-brand{ padding: 0 12px;font-size: 16px;line-height: 50px;height: 50px; }
+             .navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 50px; }
+             .navbar .navbar-toggle {  margin-top: 0px; margin-bottom: 0px; padding: 15px 15px; border: 0px; }
+             .navbar .navbar-form { margin-top: 2px; margin-bottom: 0px }
+
+
+            #ver{
+                 margin-top: -10px;
+            }
+            #ver .panel-heading{
+                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            }
+
 
         </style>
 
@@ -74,7 +99,7 @@
             $(document).ready(function() {
                 $.support.transition = false;
 
-                ga_storage._setAccount('UA-71645264-1'); //Replace with your own
+                //ga_storage._setAccount('UA-71645264-1'); //Replace with your own
                 ga_storage._setDomain('none');
 
                 ga_storage._trackPageview('/index', 'UNISON提示');
@@ -111,20 +136,8 @@
             }
 
             function update_status(){
-                /*
-                cordova.plugins.notification.local.isPresent(1, function (present) {
-                    if(present){
-                        $("#fat_on").hide();
-                        $("#fat_off").show();
-                    }else{
-                        $("#fat_off").hide();
-                        $("#fat_on").show();
-                    }
-                });
-                */
+ 
                 $('#timetable-content').hide();
-                
-                //$('#ap_cal-content').hide();
                 
                 get_all_id();
                 evo_schedule();
@@ -350,9 +363,9 @@
             }
             
             function about(){
-                ga_storage._trackEvent('setting', 'about', 'v1.0');
+                ga_storage._trackEvent('setting', 'about', 'v1.0.2');
                 $('.navbar-toggle').click();
-                alert("版本: v1.0\nCopyright: Seohea Production");
+                alert("版本: v1.0.2\nCopyright: Seohea Production");
             }
 
             //------ADS
@@ -407,13 +420,13 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" onclick="$('#about-panel').hide();">
-                        <span class="glyphicon glyphicon-cog" style="color:white;"></span>
+                        <span class="glyphicon glyphicon-option-vertical" style="color:white;"></span>
                     </button>
-                    <a class="navbar-brand" style="font-size:24px; font-family: 'Righteous', cursive;"><!--span class="glyphicon glyphicon-magnet"></span-->
-                        <table style=" margin-top: -10px">
+                    <a class="navbar-brand" style="font-size:20px; font-family: 'Righteous', cursive;"><!--span class="glyphicon glyphicon-magnet"></span-->
+                        <table >
                             <tr>
-                                <td><img alt="Brand" src="img/gem.png" style="max-width:50px;"/></td>
-                                <td>&nbsp;UNISON提示</td>
+                                <!--td><img alt="Brand" src="img/gem.png" style="max-width:50px;"/></td-->
+                                <td>&nbsp;&nbsp;UNISON提示</td>
                             </tr>
                         </table>  
                     </a>
@@ -460,29 +473,51 @@
                 <div id="ver" style="width:100%" >
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h4 class="panel-title"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<span id="ver_title">現在設定為:</span></h4>
+                            <h5 class="panel-title"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<span id="ver_title">現在設定為:</span></h5>
                         </div>
                     </div>
                 </div>
 
-                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px;">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px;" id="fat_on">
-                        今日強化素材提醒&nbsp;&nbsp;
-                        <span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
-                        <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span>
+                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
+                    <button type="button" class="btn btn-primary btn-lg" style="border:0px; padding:0px; height:50px;" onclick="update_status();">
+                        <table style="width: 100%; height:100%;">
+                            <tr>
+                                <td>現在進化素材: &nbsp;&nbsp;<span class="badge" id="evo-badge" style="color:#003366;background-color:white;">...</span></td>
+                                <td style="background-color:#0099ff; color:white; width: 15%;"><span class="glyphicon glyphicon-refresh"></span></td>
+                            </tr>
+                        </table>
                     </button>
-                    <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px;" id="fat_off">
-                        今日強化素材提醒&nbsp;&nbsp;
-                        <span class="badge" style="color:white;background-color:#ff9900;">已開啟</span>
-                        <span class="badge" style="color:#2c3e50;background-color:grey;">關閉</span>
+                </div>
+
+
+                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px; padding:0px; height:50px;" id="fat_on">
+                        <table style="width: 100%; height:100%;">
+                            <tr>
+                                <td><span id="fat_remind_button_title">今日強化素材提醒開啟</span>&nbsp;&nbsp;</td>
+                                <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
+                                <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
+                                <td style="background-color:#00bd9c; color:white; width: 15%;"><span class="glyphicon glyphicon-plus"></span></td>
+                            </tr>
+                        </table>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px; padding:0px; height:50px;" id="fat_off">
+                        <table style="width: 100%; height:100%;">
+                            <tr>
+                                <td><span id="fat_remind_button_title">今日強化素材提醒關閉</span>&nbsp;&nbsp;</td>
+                                <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
+                                <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
+                                <td style="background-color:#ff9900; color:white; width: 15%;"><span class="glyphicon glyphicon-minus"></span></td>
+                            </tr>
+                        </table>
                     </button>
                     <!--button type="button" class="btn btn-default btn-lg">Right&nbsp;&nbsp;<span class="badge">14</span></button-->
                 </div>
 
-                <div id="timetable" style="width:90%">
+                <div id="timetable">
                     <div class="panel panel-primary" style="background: rgba(255,255,255,0.7);">
                         <div class="panel-heading" onclick="$('#timetable-content').toggle();">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;<span id="timetable_title">強化素材時間表</span></h3>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;<span id="timetable_title">強化素材時間表</span>
                         </div>
 
                         <div class="panel-body" id="timetable-content">
@@ -492,18 +527,13 @@
                     </div>
                 </div>
 
-                <div class="btn-group-vertical" role="group" aria-label="..." id="action_btns" style="width:90%; padding-top: 10px; padding-bottom: 10px;">
-                    <button type="button" class="btn btn-primary btn-lg" style="border:0px;" >
-                        現在進化素材: &nbsp;&nbsp;
-                        <span class="badge" id="evo-badge" style="background-color:#ff9900; color:white">...</span>
-                    </button>
-                </div>
+                
 
-                <div id="ap_cal" style="width:90%" >
+                <div id="ap_cal" >
                     <div class="panel panel-primary" style="background: rgba(255,255,255,0.7);">
                         <div class="panel-heading" onclick="$('#ap_cal-content').toggle();">
                             <h3 class="panel-title"><span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;AP(體力)提醒&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span id="ap-isonoff" class="badge" style="color:#2c3e50;background-color:white;">...</span>
+                                <span id="ap-isonoff" class="badge" style="color:#003366;background-color:white;">...</span>
                             </h3>
                         </div>
 
