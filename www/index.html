@@ -182,6 +182,11 @@
                 get_all_id();
                 evo_schedule();
                 today_is();
+
+                if(tj_time != null)
+                    $("#tj_type").text(tj_time+"組");
+                else
+                    $("#tj_type").text("未設定");
             }
 
             function get_all_id(){
@@ -198,17 +203,10 @@
                         $('#ap-set-btn').show();
                     }
 
-                    if(($.inArray(100, ids))>=0 && ids.length > 1){
+                    if(($.inArray(0, ids))>=0 || ($.inArray(1, ids))>=0 || ($.inArray(2, ids))>=0 || ($.inArray(3, ids))>=0 || ($.inArray(4, ids))>=0){
                         $("#fat_on").hide();
                         $("#fat_off").show(); 
-                    }else if(($.inArray(100, ids))>=0 && ids.length == 1){
-                        $("#fat_off").hide();
-                        $("#fat_on").show();
-                        //alert("今日強化素材關已經完結 / 提示已經關閉");
-                    }else if(($.inArray(100, ids))<0 && ids.length > 0){
-                        $("#fat_on").hide();
-                        $("#fat_off").show(); 
-                    }else if(($.inArray(100, ids))<0 && ids.length == 0){
+                    }else{
                         $("#fat_off").hide();
                         $("#fat_on").show();
                         //alert("今日強化素材關已經完結 / 提示已經關閉");
@@ -218,7 +216,7 @@
                         $('#tj-isonoff').text("已開啟");
                         $("#tj-remove-btn").show();
                         $("#tj-set-btn").hide();
-                    }else if (($.inArray(110, ids))<0 || ($.inArray(111, ids))<0 || ($.inArray(112, ids))<0){
+                    }else{
                         $('#tj-isonoff').text("已關閉");
                         $("#tj-remove-btn").hide();
                         $("#tj-set-btn").show();
@@ -424,7 +422,7 @@
                     date.setMinutes(0);
                     date.setSeconds(0);
                     date.setHours(AB[i]);
-                    var obj = { id: (110+i), title: "UNISON TJ提醒"+i, text: "TJ la!", firstAt: date, every: "day"};
+                    var obj = { id: (110+i), title: "UNISON 團戰提醒", text: "團戰即將進行, 盡快預備吧!", firstAt: date, every: "day"};
                     arr.push(obj);
                 }
                 return arr;
@@ -439,14 +437,17 @@
                     //window.localStorage.setItem("tuenjin", "A");
 
                     cordova.plugins.notification.local.schedule(arr);
+                    update_status();
+                    alert("提示設定成功!");
                 }
                 else{
-                    alert("Please select type first!");
+                    alert("請先選擇團戰時間!");
                 }
             }
 
             function tuenjin_time_select(type){
                 tj_time = type;
+                update_status();
             }
             
             function about(){
@@ -483,8 +484,13 @@
                     update_status();
                 });
             }
-            document.addEventListener("deviceready", onDeviceReady, false);
 
+            function onResume() {
+                update_status();
+            }
+
+            document.addEventListener("deviceready", onDeviceReady, false);
+            document.addEventListener("resume", onResume, false);
 
             
 
@@ -523,16 +529,19 @@
                                 <a href="#page-top"></a>
                             </li>
                             <li class="page-scroll">
-                                <a href="#" onclick="settings(0);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為日版</a>
+                                <a href="#" onclick="settings(0);"><span class="glyphicon glyphicon-globe" style="color:#99ccff"></span>&nbsp;&nbsp;設定為日版</a>
                             </li>
                             <li class="page-scroll">
-                                <a href="#" onclick="settings(1);"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;設定為台版</a>
+                                <a href="#" onclick="settings(1);"><span class="glyphicon glyphicon-globe" style="color:#99ccff"></span>&nbsp;&nbsp;設定為台版</a>
                             </li>
                             <li class="page-scroll">
-                                <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;取消所有提醒 [剩餘提示數量: <span id="alert-count">999</span>]</a>
+                                <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle" style="color:#ff5050"></span>&nbsp;&nbsp;取消所有提醒 [剩餘提示數量: <span id="alert-count">999</span>]</a>
                             </li>
                             <li class="page-scroll">
-                                <a href="#" onclick="about();"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;關於</a>
+                                <a onclick=""><span class="glyphicon glyphicon-time" style="color:#ffff66"></span>&nbsp;&nbsp;現在團戰時間設定為:&nbsp;<span id="tj_type"></span></a>
+                            </li>
+                            <li class="page-scroll">
+                                <a href="#" onclick="about();"><span class="glyphicon glyphicon-question-sign" style="color:#99cc00"></span>&nbsp;&nbsp;關於</a>
                             </li>
                         </ul>
                     </div>
@@ -551,7 +560,7 @@
                 </div>
             </header>
 
-            <div id="dimScreen"></div>
+            <!--div id="dimScreen"></div-->
 
             <div class="container">
                 <div class="row">
@@ -579,7 +588,7 @@
                         <button type="button" class="btn btn-primary btn-lg" onclick="strong_fat_schedule();" style="border:0px; padding:0px; height:50px;" id="fat_on">
                             <table style="width: 100%; height:100%;">
                                 <tr>
-                                    <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp;&nbsp;</td>
+                                    <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp; <span class="badge" style="color:#003366;background-color:white;" id="tj_type">未開啟</span></td>
                                     <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
                                     <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
                                     <td style="background-color:#00bd9c; color:white; width: 15%;"><span class="glyphicon glyphicon-plus-sign"></span></td>
@@ -589,7 +598,7 @@
                         <button type="button" class="btn btn-primary btn-lg" onclick="cancel_noti();" style="border:0px; padding:0px; height:50px;" id="fat_off">
                             <table style="width: 100%; height:100%;">
                                 <tr>
-                                    <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp;&nbsp;</td>
+                                    <td><span id="fat_remind_button_title">今日強化素材提醒</span>&nbsp; <span class="badge" style="color:#003366;background-color:white;" id="tj_type">已開啟</span></td>
                                     <!--span class="badge" style="color:#2c3e50;background-color:grey;">開啟</span>
                                     <span class="badge" style="color:white;background-color:#ff9900;">已關閉</span-->
                                     <td style="background-color:#b30000; color:white; width: 15%;"><span class="glyphicon glyphicon-minus-sign"></span></td>
@@ -658,7 +667,9 @@
                                     <table style="width: 100%; height:100%;">
                                         <tr>
                                             <td style="text-align:center;"><h3 class="panel-title">團戰提醒&nbsp;&nbsp;&nbsp;
-                                                <span id="tj-isonoff" class="badge" style="color:#003366;background-color:white;">...</span></h3></td>
+                                                <span id="tj-isonoff" class="badge" style="color:#003366;background-color:white;">...</span>
+                                                &nbsp; <span class="badge" style="color:#003366;background-color:white;" id="tj_type">未設定</span></h3>
+                                            </td>
                                             <td style="background-color:#ff6666; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-screenshot"></span></td>
                                         </tr>
                                     </table>
@@ -673,9 +684,9 @@
                                             團戰時間設定 <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a onclick="tuenjin_time_select('A');">A</a></li>
+                                            <li><a onclick="tuenjin_time_select('A');">A組</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a onclick="tuenjin_time_select('B');">B</a></li>
+                                            <li><a onclick="tuenjin_time_select('B');">B組</a></li>
                                         </ul>
                                     </div>
                                     <div class="btn-group btn-group-sm" role="group" id="tj-remove-btn">
