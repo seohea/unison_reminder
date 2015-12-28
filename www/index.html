@@ -125,6 +125,7 @@
 
         <script type="text/javascript">
             var keyvalue;
+            var tj_time;
 
             $(document).ready(function() {
                 $.support.transition = false;
@@ -151,6 +152,13 @@
             function cancel_fat_noti(ids){
                 ga_storage._trackEvent('notification', 'cancel_noti', 'fat');
                 cordova.plugins.notification.local.cancel(ids, function() {
+                    update_status();
+                });
+            }
+
+            function cancel_tj_noti(){
+                ga_storage._trackEvent('notification', 'cancel_noti', 'tuenjin');
+                cordova.plugins.notification.local.cancel([110,111,112], function() {
                     update_status();
                 });
             }
@@ -184,7 +192,7 @@
                         $('#ap-isonoff').text("已開啟");
                         $('#ap-remove-btn').show();
                         $('#ap-set-btn').hide();
-                    }else{
+                    }else if (($.inArray(100, ids))<0){
                         $('#ap-isonoff').text("已關閉");
                         $('#ap-remove-btn').hide();
                         $('#ap-set-btn').show();
@@ -204,9 +212,18 @@
                         $("#fat_off").hide();
                         $("#fat_on").show();
                         //alert("今日強化素材關已經完結 / 提示已經關閉");
-                    }else{
-                        //alert("Something goes wrong!");
                     }
+
+                    if(($.inArray(110, ids))>=0 && ($.inArray(111, ids))>=0 && ($.inArray(112, ids))>=0){
+                        $('#tj-isonoff').text("已開啟");
+                        $("#tj-remove-btn").show();
+                        $("#tj-set-btn").hide();
+                    }else if (($.inArray(110, ids))<0 || ($.inArray(111, ids))<0 || ($.inArray(112, ids))<0){
+                        $('#tj-isonoff').text("已關閉");
+                        $("#tj-remove-btn").hide();
+                        $("#tj-set-btn").show();
+                    }
+
                 });
             }
 
@@ -393,6 +410,44 @@
                 
                 $('#evo-badge').text(schedule[date.getHours()]);
             }
+
+            function tuenjin_time(type){
+                var arr = [];
+                var AB = [];
+                if(keyvalue=="jp")
+                    AB = (type=="A")?[11,17,20]:[12,18,21];
+                else
+                    AB = (type=="A")?[11,17,20]:[12,18,21];
+
+                for(var i=0; i<3; i++){
+                    var date = new Date();
+                    date.setMinutes(0);
+                    date.setSeconds(0);
+                    date.setHours(AB[i]);
+                    var obj = { id: (110+i), title: "UNISON TJ提醒"+i, text: "TJ la!", firstAt: date, every: "day"};
+                    arr.push(obj);
+                }
+                return arr;
+            }
+
+            function tuenjin(){
+                if(tj_time != null){
+                    var arr = tuenjin_time(tj_time);
+                    console.log(arr);
+                    
+                    ga_storage._trackEvent('setting', 'tuenjin', (keyvalue+"_"+tj_time));
+                    //window.localStorage.setItem("tuenjin", "A");
+
+                    cordova.plugins.notification.local.schedule(arr);
+                }
+                else{
+                    alert("Please select type first!");
+                }
+            }
+
+            function tuenjin_time_select(type){
+                tj_time = type;
+            }
             
             function about(){
                 ga_storage._trackEvent('setting', 'about', 'v1.0.2');
@@ -496,7 +551,7 @@
                 </div>
             </header>
 
-            <!--div id="dimScreen"></div-->
+            <div id="dimScreen"></div>
 
             <div class="container">
                 <div class="row">
@@ -618,16 +673,16 @@
                                             團戰時間設定 <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">A</a></li>
+                                            <li><a onclick="tuenjin_time_select('A');">A</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">B</a></li>
+                                            <li><a onclick="tuenjin_time_select('B');">B</a></li>
                                         </ul>
                                     </div>
                                     <div class="btn-group btn-group-sm" role="group" id="tj-remove-btn">
-                                        <button class="btn btn-warning" type="button" onclick="tj_cancel();" >取消團戰提醒</button>
+                                        <button class="btn btn-warning" type="button" onclick="cancel_tj_noti();" >取消團戰提醒</button>
                                     </div>
                                     <div class="btn-group btn-group-sm" role="group"  id="tj-set-btn">
-                                        <button class="btn btn-success" type="button" onclick="tj_remind();">設定團戰提醒</button>
+                                        <button class="btn btn-success" type="button" onclick="tuenjin();">設定團戰提醒</button>
                                     </div>
                                 </div>
                             </div>
