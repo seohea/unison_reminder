@@ -177,16 +177,19 @@
  
                 $('#timetable-content').hide();
                 $('#ap_cal-content').hide();
-                $('#tj-content').hide();
+                //$('#tj-content').hide();
                 
                 get_all_id();
                 evo_schedule();
                 today_is();
 
-                if(tj_time != null)
+                if(tj_time != null){
                     $("#tj_type").text(tj_time+"組");
-                else
+                    $("#tj_type2").text(tj_time+"組");
+                }else{
                     $("#tj_type").text("未設定");
+                    $("#tj_type2").text("未設定");
+                }
             }
 
             function get_all_id(){
@@ -227,7 +230,18 @@
 
             function show_all_id(){
                 cordova.plugins.notification.local.getAllIds(function (ids) {
-                    $('#alert-count').text(ids.length);
+                    var remind = "";
+                    if(($.inArray(0, ids))>=0 || ($.inArray(1, ids))>=0 || ($.inArray(2, ids))>=0 || ($.inArray(3, ids))>=0 || ($.inArray(4, ids))>=0){
+                        remind = remind + "強化素材 ";
+                    }
+                    if(($.inArray(100, ids))>=0){
+                        remind = remind + "AP ";
+                    }
+                    if(($.inArray(110, ids))>=0 && ($.inArray(111, ids))>=0 && ($.inArray(112, ids))>=0){
+                        remind = remind + "團戰 ";
+                    }
+
+                    $("#all_alerts").text(remind);
                 });
             }
 
@@ -352,6 +366,8 @@
                     timetable_version("tw");
                     $('#ver_title').text("現在設定為: 台版");
                 }
+
+                tj_time = window.localStorage.getItem("tuenjin");
             }
 
             function settings(version){
@@ -413,13 +429,13 @@
                 var arr = [];
                 var AB = [];
                 if(keyvalue=="jp")
-                    AB = (type=="A")?[11,17,20]:[12,18,21];
+                    AB = (type=="A")?[10,16,19]:[11,17,20];
                 else
                     AB = (type=="A")?[11,17,20]:[12,18,21];
 
                 for(var i=0; i<3; i++){
                     var date = new Date();
-                    date.setMinutes(0);
+                    date.setMinutes(55);
                     date.setSeconds(0);
                     date.setHours(AB[i]);
                     var obj = { id: (110+i), title: "UNISON 團戰提醒", text: "團戰即將進行, 盡快預備吧!", firstAt: date, every: "day"};
@@ -434,7 +450,6 @@
                     console.log(arr);
                     
                     ga_storage._trackEvent('setting', 'tuenjin', (keyvalue+"_"+tj_time));
-                    //window.localStorage.setItem("tuenjin", "A");
 
                     cordova.plugins.notification.local.schedule(arr);
                     update_status();
@@ -446,7 +461,11 @@
             }
 
             function tuenjin_time_select(type){
+                cancel_tj_noti();
+                
                 tj_time = type;
+                window.localStorage.setItem("tuenjin", type);
+
                 update_status();
             }
             
@@ -463,7 +482,7 @@
                   {
                     $('#dimScreen').fadeTo( 1000, 0 );
                     $('#dimScreen').remove();
-                  }, 2000);
+                  }, 2500);
                 
                 admob.createBannerView({
                   publisherId:"ca-app-pub-9969581706012169/5605224331"
@@ -535,10 +554,13 @@
                                 <a href="#" onclick="settings(1);"><span class="glyphicon glyphicon-globe" style="color:#99ccff"></span>&nbsp;&nbsp;設定為台版</a>
                             </li>
                             <li class="page-scroll">
-                                <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle" style="color:#ff5050"></span>&nbsp;&nbsp;取消所有提醒 [剩餘提示數量: <span id="alert-count">999</span>]</a>
+                                <a href="#" onclick="cancel_all_noti();"><span class="glyphicon glyphicon-ban-circle" style="color:#ff5050"></span>&nbsp;&nbsp;取消所有提醒</a>
                             </li>
                             <li class="page-scroll">
-                                <a onclick=""><span class="glyphicon glyphicon-time" style="color:#ffff66"></span>&nbsp;&nbsp;現在團戰時間設定為:&nbsp;<span id="tj_type"></span></a>
+                                <a><span class="glyphicon glyphicon-bullhorn" style="color:#ff9999"></span>&nbsp;&nbsp;已開啟提示:&nbsp;<span id="all_alerts">沒有</span></a>
+                            </li>
+                            <li class="page-scroll">
+                                <a><span class="glyphicon glyphicon-time" style="color:#ffff66"></span>&nbsp;&nbsp;現在團戰時間設定為:&nbsp;<span id="tj_type"></span></a>
                             </li>
                             <li class="page-scroll">
                                 <a href="#" onclick="about();"><span class="glyphicon glyphicon-question-sign" style="color:#99cc00"></span>&nbsp;&nbsp;關於</a>
@@ -668,9 +690,9 @@
                                         <tr>
                                             <td style="text-align:center;"><h3 class="panel-title">團戰提醒&nbsp;&nbsp;&nbsp;
                                                 <span id="tj-isonoff" class="badge" style="color:#003366;background-color:white;">...</span>
-                                                &nbsp; <span class="badge" style="color:#003366;background-color:white;" id="tj_type">未設定</span></h3>
+                                                &nbsp; <span class="badge" style="color:#003366;background-color:white;" id="tj_type2">未設定</span></h3>
                                             </td>
-                                            <td style="background-color:#ff6666; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-screenshot"></span></td>
+                                            <td style="background-color:#ff6666; color:white; width: 15%;text-align:center;"><span class="glyphicon glyphicon-fire"></span></td>
                                         </tr>
                                     </table>
                             </div>
