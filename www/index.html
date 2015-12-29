@@ -138,6 +138,7 @@
             });
 
             function cancel_noti(){
+                /*
                 cordova.plugins.notification.local.getAllIds(function (ids) {
                     if(($.inArray(100, ids))>=0){
                         ids.splice(ids.indexOf(100), 1);
@@ -147,6 +148,9 @@
                     }
 
                 });
+                */
+                var ids = [0,1,2,3,4];
+                cancel_fat_noti(ids);
             }
 
             function cancel_fat_noti(ids){
@@ -177,7 +181,7 @@
  
                 $('#timetable-content').hide();
                 $('#ap_cal-content').hide();
-                //$('#tj-content').hide();
+                $('#tj-content').hide();
                 
                 get_all_id();
                 evo_schedule();
@@ -462,17 +466,18 @@
 
             function tuenjin_time_select(type){
                 cancel_tj_noti();
-                
+
                 tj_time = type;
                 window.localStorage.setItem("tuenjin", type);
 
                 update_status();
+                $('#tj-content').show();
             }
             
             function about(){
-                ga_storage._trackEvent('setting', 'about', 'v1.0.2');
+                ga_storage._trackEvent('setting', 'about', 'v1.0.3');
                 $('.navbar-toggle').click();
-                alert("版本: v1.0.2\nCopyright: Seohea Production");
+                alert("版本: v1.0.3\nCopyright: Seohea Production");
             }
 
             //------ADS
@@ -502,6 +507,11 @@
                 cordova.plugins.notification.local.on("clear", function(notification) {
                     update_status();
                 });
+
+                document.addEventListener("backbutton", function(e){
+                   e.preventDefault();
+                   navigator.app.exitApp();  
+                }, false);
             }
 
             function onResume() {
@@ -582,7 +592,7 @@
                 </div>
             </header>
 
-            <!--div id="dimScreen"></div-->
+            <div id="dimScreen"></div>
 
             <div class="container">
                 <div class="row">
