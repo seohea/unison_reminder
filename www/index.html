@@ -130,7 +130,7 @@
             $(document).ready(function() {
                 $.support.transition = false;
 
-                //ga_storage._setAccount('UA-71645264-1'); //Replace with your own
+                ga_storage._setAccount('UA-71645264-1'); //Replace with your own
                 ga_storage._setDomain('none');
 
                 ga_storage._trackPageview('/index', 'UNISON提示');
@@ -453,7 +453,7 @@
                     var arr = tuenjin_time(tj_time);
                     console.log(arr);
                     
-                    ga_storage._trackEvent('setting', 'tuenjin', (keyvalue+"_"+tj_time));
+                    ga_storage._trackEvent('notification', 'tuenjin', (keyvalue+"_"+tj_time));
 
                     cordova.plugins.notification.local.schedule(arr);
                     update_status();
@@ -469,6 +469,7 @@
 
                 tj_time = type;
                 window.localStorage.setItem("tuenjin", type);
+                ga_storage._trackEvent('setting', 'tuenjin', type);
 
                 update_status();
                 $('#tj-content').show();
